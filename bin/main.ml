@@ -1,13 +1,12 @@
-let display_character_message choice =
-  match choice with
-  | 1 -> print_endline "You have chosen Kate the Knight!"
-  | 2 -> print_endline "You have chosen Walter the Wizard!"
-  | 3 -> print_endline "You have chosen Max the Monk!"
-  | 4 -> print_endline "You have chosen Abigail the Archer!"
-  | 5 -> print_endline "You have chosen Alan the Alchemist!"
-  | _ -> print_endline "Invalid choice, please enter a number between 1 and 5."
+open Cs3110finalproject.Adventure
 
-let choose_character () =
+let display_character_message choice =
+  let character = create_character choice in
+  print_endline ("\nYou have chosen " ^ character.name ^ "!");
+  print_endline ("Special ability: " ^ character.special_ability);
+  print_endline "\nYour journey begins..."
+
+let rec choose_character () =
   print_endline "";
   print_endline "⚔️🐪 WELCOME TO CAMELOT ADVENTURES 🐪⚔️";
   print_endline "";
@@ -32,8 +31,56 @@ let choose_character () =
   print_string "Enter your choice (1-5): ";
 
   match read_int_opt () with
-  | Some choice -> display_character_message choice
-  | None ->
-      print_endline "Invalid input, please enter a number between 1 and 5."
+  | Some choice when choice >= 1 && choice <= 5 ->
+      display_character_message choice;
+      choice
+  | _ ->
+      print_endline "Invalid input, please enter a number between 1 and 5.";
+      choose_character ()
 
-let () = choose_character ()
+let rec get_valid_choice max_choice =
+  print_string "> ";
+  match read_int_opt () with
+  | Some n when n >= 1 && n <= max_choice -> n
+  | _ ->
+      print_endline "Invalid choice. Please try again.";
+      get_valid_choice max_choice
+
+let display_game_status state =
+  print_endline ("\nDay " ^ string_of_int state.days_survived);
+  print_endline ("Health: " ^ string_of_int state.player.health);
+  print_endline ("Location: " ^ state.current_location.name);
+  print_endline ("Food: " ^ string_of_int state.food);
+  print_endline ("Gold: " ^ string_of_int state.gold)
+
+let rec game_loop state current_scenario =
+  display_game_status state;
+  print_endline current_scenario.description;
+  List.iter
+    (fun (choice : choice) -> print_endline choice.description)
+    current_scenario.choices;
+
+  let choice_num = get_valid_choice (List.length current_scenario.choices) in
+  let choice = List.nth current_scenario.choices (choice_num - 1) in
+  let new_state, message = choice.consequence state in
+  print_endline message;
+
+  if new_state.player.health <= 0 then
+    print_endline "\nGame Over! You have fallen in battle."
+  else
+    let next_scenario =
+      match current_scenario.description with
+      | "You stand before the castle gates. What will you do?"
+        when choice_num = 2 ->
+          courtyard_scenario
+      | _ -> current_scenario
+    in
+    game_loop
+      { new_state with days_survived = new_state.days_survived + 1 }
+      next_scenario
+
+let () =
+  let choice = choose_character () in
+  let character = create_character choice in
+  let initial_state = create_game_state character in
+  game_loop initial_state castle_gate_scenario

@@ -1,2 +1,3 @@
 (library
- (name cs3110finalproject))
+ (name cs3110finalproject)
+ (public_name cs3110finalproject))
