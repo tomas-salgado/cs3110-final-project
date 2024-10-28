@@ -1,8 +1,0 @@
-lib: [
-  "_build/install/default/lib/cs3110finalproject/META"
-  "_build/install/default/lib/cs3110finalproject/dune-package"
-  "_build/install/default/lib/cs3110finalproject/opam"
-]
-bin: [
-  "_build/install/default/bin/cs3110finalproject"
-]
