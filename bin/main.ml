@@ -70,9 +70,17 @@ let rec game_loop state current_scenario =
   else
     let next_scenario =
       match current_scenario.description with
-      | "You stand before the castle gates. What will you do?"
+      | "The battle has just broken out and you arrive at the gates of Camelot \
+         Castle. There are a few options for how could proceed. Would you like \
+         to: "
+        when choice_num = 1 ->
+          wizard_fight_scenario (* Move to wizard fight if option 1 is chosen *)
+      | "The battle has just broken out and you arrive at the gates of Camelot \
+         Castle. There are a few options for how could proceed. Would you like \
+         to: "
         when choice_num = 2 ->
           courtyard_scenario
+          (* Move to courtyard scenario if option 2 is chosen *)
       | _ -> current_scenario
     in
     game_loop
@@ -83,4 +91,4 @@ let () =
   let choice = choose_character () in
   let character = create_character choice in
   let initial_state = create_game_state character in
-  game_loop initial_state castle_gate_scenario
+  game_loop initial_state initial_scenario

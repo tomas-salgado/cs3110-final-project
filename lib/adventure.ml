@@ -87,13 +87,16 @@ let display_game_status state =
   Printf.printf "\nStatus:\nHealth: %d\nFood: %d\nGold: %d\nDays Survived: %d\n"
     state.player.health state.food state.gold state.days_survived
 
-let castle_gate_scenario =
+let initial_scenario =
   {
-    description = "You stand before the castle gates. What will you do?";
+    description =
+      "The battle has just broken out and you arrive at the gates of Camelot \
+       Castle. There are a few options for how could proceed. Would you like \
+       to: ";
     choices =
       [
         {
-          description = "1. Try to sneak past the guards";
+          description = "1. Enter King Arthur's Castle through the gates";
           consequence =
             (fun state ->
               ( {
@@ -105,7 +108,15 @@ let castle_gate_scenario =
                  damage." ));
         };
         {
-          description = "2. Look for another entrance";
+          description = "2. Look for another entrance to the castle";
+          consequence =
+            (fun state ->
+              ( state,
+                "You search around and find a potential alternative route." ));
+        };
+        {
+          description =
+            "3. Go to the town center where the fight has broken out";
           consequence =
             (fun state ->
               ( state,
@@ -127,6 +138,43 @@ let courtyard_scenario =
         };
         {
           description = "2. Try to blend in with the crowd";
+          consequence =
+            (fun state ->
+              ( { state with food = state.food - 10 },
+                "You manage to blend in but lose some supplies in the process."
+              ));
+        };
+      ];
+  }
+
+let wizard_fight_scenario =
+  {
+    description =
+      "The castle's Wizard appears and challenges you to a magical duel in \
+       order to pass through the castle's gates. How would you like to \
+       proceed?";
+    choices =
+      [
+        {
+          description = "1. Accept the Wizard's challenge and duel. ";
+          consequence =
+            (fun state ->
+              if state.player.name = "Walter the Wizard" then
+                ( state,
+                  "Walter's strength in Wizardy prevails, and she wins the \
+                   duel unscathed!" )
+              else
+                ( {
+                    state with
+                    player =
+                      { state.player with health = state.player.health - 50 };
+                  },
+                  "You don't know magic, the wizard does some serious damage \
+                   and you end up losing the duel!" ));
+        };
+        {
+          description =
+            "2. Run away from the castle gates and go somewhere else.";
           consequence =
             (fun state ->
               ( { state with food = state.food - 10 },

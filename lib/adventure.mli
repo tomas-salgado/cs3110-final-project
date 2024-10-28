@@ -25,5 +25,6 @@ type scenario = { description : string; choices : choice list }
 
 val create_character : int -> character
 val create_game_state : character -> game_state
-val castle_gate_scenario : scenario
+val initial_scenario : scenario
 val courtyard_scenario : scenario
+val wizard_fight_scenario : scenario
