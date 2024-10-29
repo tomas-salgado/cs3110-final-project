@@ -102,7 +102,7 @@ let initial_scenario =
               ( {
                   state with
                   player =
-                    { state.player with health = state.player.health - 10 };
+                    { state.player with health = state.player.health - 30 };
                 },
                 "You attempt to sneak past but get spotted and take some \
                  damage." ));
@@ -115,12 +115,10 @@ let initial_scenario =
                 "You search around and find a potential alternative route." ));
         };
         {
-          description =
-            "3. Go to the town center where the fight has broken out";
+          description = "3. Go to the town center where the market is located";
           consequence =
             (fun state ->
-              ( state,
-                "You search around and find a potential alternative route." ));
+              (state, "You search around and find the town farmer's market."));
         };
       ];
   }
@@ -137,7 +135,10 @@ let courtyard_scenario =
             "1. Fight the guards and attempt to enter the castle through the \
              courtyard";
           consequence =
-            (fun state -> (state, "You successfully avoid detection."));
+            (fun state ->
+              ( { state with player = { state.player with health = 0 } },
+                "The guards overpower you and win the fight, you lose your \
+                 life in the process." ));
         };
         {
           description = "2. Sneak your way into the castle";
@@ -205,8 +206,70 @@ let market_scenario =
           description = "3. Try to steal food";
           consequence =
             (fun state ->
-              ( { state with food = state.food + 5 },
-                "You managed to sneak away with a piece of fruit" ));
+              ( { state with player = { state.player with health = 0 } },
+                "You managed to sneak away with a piece of fruit, but the \
+                 fruit vendor caught up with you and ended your life." ));
+        };
+      ];
+  }
+
+let mystic_scenario =
+  {
+    description =
+      "You walk to the nearby lake instead and encounter a mystic with magical \
+       abilities upon arriving. The mystic tells you the secrets to ending \
+       this war and saving Camelot. Will you use these secrets to end the \
+       battle for good?";
+    choices =
+      [
+        {
+          description =
+            "1. Take the mystic's advice back to Camelot, ending the war ";
+          consequence =
+            (fun state ->
+              ( state,
+                "You have saved Camelot and the lives of millions of people. \
+                 YOU WIN! " ));
+        };
+        {
+          description =
+            "2. Don't take the Mystic's advice, run away and do what you think \
+             is best for Camelot.";
+          consequence =
+            (fun state ->
+              ( { state with player = { state.player with health = 0 } },
+                "Your decisions are not well informed and you cause the \
+                 downfall of yourself and Camelot as a whole." ));
+        };
+      ];
+  }
+
+let sneak_in_scenario =
+  {
+    description =
+      "You are now in the castle and encounter King Arthur himself as you pass \
+       through the halls. He stops you and asks who you are, you explain you \
+       are a towns-person who wants to help end the battle. King Arthur \
+       decides to give you his magic sword to help defeat the enemies. What do \
+       you do next? ";
+    choices =
+      [
+        {
+          description = "1. The the magic sword and use it to save Camelot ";
+          consequence =
+            (fun state ->
+              ( state,
+                "You have saved Camelot and the lives of millions of people. \
+                 YOU WIN! " ));
+        };
+        {
+          description =
+            "2. Run away out of the fright of the power of the sword. ";
+          consequence =
+            (fun state ->
+              ( { state with player = { state.player with health = 0 } },
+                "King Arthur is not impressed by your cowardliness and strikes \
+                 you down himself with the magic sword, ending your life. " ));
         };
       ];
   }
