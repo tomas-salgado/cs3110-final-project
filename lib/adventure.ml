@@ -234,9 +234,8 @@ let mystic_scenario =
             "1. Take the mystic's advice back to Camelot, ending the war ";
           consequence =
             (fun state ->
-              ( state,
-                "You have saved Camelot and the lives of millions of people. \
-                 YOU WIN! " ));
+              ( { state with player = { state.player with health = 120 } },
+                "You have saved Camelot and the lives of millions of people." ));
         };
         {
           description =
@@ -265,9 +264,8 @@ let sneak_in_scenario =
           description = "1. The the magic sword and use it to save Camelot ";
           consequence =
             (fun state ->
-              ( state,
-                "You have saved Camelot and the lives of millions of people. \
-                 YOU WIN! " ));
+              ( { state with player = { state.player with health = 120 } },
+                "You have saved Camelot and the lives of millions of people." ));
         };
         {
           description =

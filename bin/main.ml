@@ -79,6 +79,7 @@ let rec game_loop state current_scenario =
 
   if new_state.player.health <= 0 then
     print_endline "\nGame Over! You have fallen in battle."
+  else if new_state.player.health = 120 then print_endline "\n YOU WIN!"
   else
     let next_scenario =
       match current_scenario.description with
