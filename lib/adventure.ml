@@ -183,3 +183,32 @@ let wizard_fight_scenario =
         };
       ];
   }
+
+let market_scenario =
+  {
+    description =
+      "You entered the town farmer's market. What would you like to do?";
+    choices =
+      [
+        {
+          description = "1. Buy some food";
+          consequence =
+            (fun state ->
+              ( { state with food = state.food + 20; gold = state.gold - 10 },
+                "You bought some vegetables for 10 pieces of gold" ));
+        };
+        {
+          description = "2. Go somewhere else";
+          consequence =
+            (fun state ->
+              (state, "You left the market to explore the rest of town"));
+        };
+        {
+          description = "3. Try to steal food";
+          consequence =
+            (fun state ->
+              ( { state with food = state.food + 5 },
+                "You managed to sneak away with a piece of fruit" ));
+        };
+      ];
+  }
