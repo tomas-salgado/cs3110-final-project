@@ -6,7 +6,11 @@ type character = {
   special_ability : string;
 }
 
-type location = { name : string; description : string; danger_level : int }
+type location = {
+  name : string;
+  description : string;
+  danger_level : int;
+}
 
 type game_state = {
   player : character;
@@ -21,7 +25,10 @@ type choice = {
   consequence : game_state -> game_state * string;
 }
 
-type scenario = { description : string; choices : choice list }
+type scenario = {
+  description : string;
+  choices : choice list;
+}
 
 let create_character choice =
   match choice with
