@@ -128,16 +128,19 @@ let initial_scenario =
 let courtyard_scenario =
   {
     description =
-      "You've made it to the castle courtyard. Guards are patrolling.";
+      "You walk over to to the castle courtyard, but guards are patrolling. \
+       What would you like to do?";
     choices =
       [
         {
-          description = "1. Hide behind the market stalls";
+          description =
+            "1. Fight the guards and attempt to enter the castle through the \
+             courtyard";
           consequence =
             (fun state -> (state, "You successfully avoid detection."));
         };
         {
-          description = "2. Try to blend in with the crowd";
+          description = "2. Sneak your way into the castle";
           consequence =
             (fun state ->
               ( { state with food = state.food - 10 },
@@ -161,24 +164,19 @@ let wizard_fight_scenario =
             (fun state ->
               if state.player.name = "Walter the Wizard" then
                 ( state,
-                  "Walter's strength in Wizardy prevails, and she wins the \
-                   duel unscathed!" )
+                  "Walter's strength in Wizardy prevails, and he wins the duel \
+                   unscathed!" )
               else
-                ( {
-                    state with
-                    player =
-                      { state.player with health = state.player.health - 50 };
-                  },
+                ( { state with player = { state.player with health = 0 } },
                   "You don't know magic, the wizard does some serious damage \
                    and you end up losing the duel!" ));
         };
         {
-          description =
-            "2. Run away from the castle gates and go somewhere else.";
+          description = "2. Run away from the wizard and go somewhere else.";
           consequence =
             (fun state ->
               ( { state with food = state.food - 10 },
-                "You manage to blend in but lose some supplies in the process."
+                "You leave but trip and fall over a tree trunk on your way out."
               ));
         };
       ];
