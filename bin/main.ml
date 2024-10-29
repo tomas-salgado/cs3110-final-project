@@ -1,16 +1,16 @@
 open Cs3110finalproject.Adventure
 
-(** [display_character_message choice] displayed a message regarding the 
-character [choice] that the user selects and their special ability within the 
-game. *)
+(** [display_character_message choice] displayed a message regarding the
+    character [choice] that the user selects and their special ability within
+    the game. *)
 let display_character_message choice =
   let character = create_character choice in
   print_endline ("\nYou have chosen " ^ character.name ^ "!");
   print_endline ("Special ability: " ^ character.special_ability);
   print_endline "\nYour journey begins..."
 
-(** [choose_character] prints the initial message to the user introducing them 
-to the game and allowing them to select their character. *)
+(** [choose_character] prints the initial message to the user introducing them
+    to the game and allowing them to select their character. *)
 let rec choose_character () =
   print_endline "";
   print_endline "⚔️🐪 WELCOME TO CAMELOT ADVENTURES 🐪⚔️";
@@ -43,8 +43,8 @@ let rec choose_character () =
       print_endline "Invalid input, please enter a number between 1 and 5.";
       choose_character ()
 
-(** [get_valid_choice max_choice] handles if the user does not select a choice 
-  within bounds of [max_choice]. *)
+(** [get_valid_choice max_choice] handles if the user does not select a choice
+    within bounds of [max_choice]. *)
 let rec get_valid_choice max_choice =
   print_string "> ";
   match read_int_opt () with
@@ -53,8 +53,8 @@ let rec get_valid_choice max_choice =
       print_endline "Invalid choice. Please try again.";
       get_valid_choice max_choice
 
-(** [display_game_status state] displays the [state] of the user in the game 
-inclduing days survived, health, location, food, and gold. *)
+(** [display_game_status state] displays the [state] of the user in the game
+    inclduing days survived, health, location, food, and gold. *)
 let display_game_status state =
   print_endline ("\nDay " ^ string_of_int state.days_survived);
   print_endline ("Health: " ^ string_of_int state.player.health);
@@ -62,9 +62,9 @@ let display_game_status state =
   print_endline ("Food: " ^ string_of_int state.food);
   print_endline ("Gold: " ^ string_of_int state.gold)
 
-(** [game_loop state current_scenario] loop that allows the user to interact with 
-and pass through multiple scenarios, updating the [state] to account for the 
-choice the user makes in the [current_scenario]. *)
+(** [game_loop state current_scenario] loop that allows the user to interact
+    with and pass through multiple scenarios, updating the [state] to account
+    for the choice the user makes in the [current_scenario]. *)
 let rec game_loop state current_scenario =
   display_game_status state;
   print_endline current_scenario.description;
@@ -85,30 +85,24 @@ let rec game_loop state current_scenario =
       | "The battle has just broken out and you arrive at the gates of Camelot \
          Castle. There are a few options for how could proceed. Would you like \
          to: "
-        when choice_num = 1 ->
-          wizard_fight_scenario
+        when choice_num = 1 -> wizard_fight_scenario
       | "The battle has just broken out and you arrive at the gates of Camelot \
          Castle. There are a few options for how could proceed. Would you like \
          to: "
-        when choice_num = 2 ->
-          courtyard_scenario
+        when choice_num = 2 -> courtyard_scenario
       | "The battle has just broken out and you arrive at the gates of Camelot \
          Castle. There are a few options for how could proceed. Would you like \
          to: "
-        when choice_num = 3 ->
-          market_scenario
+        when choice_num = 3 -> market_scenario
       | "The castle's Wizard appears and challenges you to a magical duel in \
          order to pass through the castle's gates. How would you like to \
          proceed?"
-        when choice_num = 2 ->
-          mystic_scenario
+        when choice_num = 2 -> mystic_scenario
       | "You entered the town farmer's market. What would you like to do?"
-        when choice_num = 2 || choice_num = 1 ->
-          mystic_scenario
+        when choice_num = 2 || choice_num = 1 -> mystic_scenario
       | "You walk over to to the castle courtyard, but guards are patrolling. \
          What would you like to do?"
-        when choice_num = 2 ->
-          sneak_in_scenario
+        when choice_num = 2 -> sneak_in_scenario
       | _ -> current_scenario
     in
     game_loop
