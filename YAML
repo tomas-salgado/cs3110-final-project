@@ -21,11 +21,11 @@ git-repo: "https://github.com/tomas-salgado/cs3110-final-project"
 demo-video-url: "https://www.youtube.com/watch?v=eSBybJGZoCU"
 # Write a short, attention-grabbing description of your project.
 desc: >
-  Our project is an interactive calculator. It supports standard mathematical
-  operations like addition, multiplication, negation, and division on both
-  integers and floating-point numbers. The interface is completely
-  programmable--new functions can easily be defined and assigned to new "keys"
-  in the visual interface.
+  Our project is an interactive choose your own adventure game. It allows the 
+  user to choose the character they would like to play the game as, and goes
+  through a series of scenarios in which the user must choose what to do when 
+  faced with different tasks. 
 
-  Standard visual I/O is supported, but the calculator can also emit sound. By
-  pressing down a special key, it can play a fugue by J.S. Bach.
+  As the user continues through different scenarios of the game and chooses for 
+  themself how to proceed, the user can either win the game by saving Camelot 
+  or lose the game once their health becomes 0 points. 
