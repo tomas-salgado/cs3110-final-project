@@ -10,16 +10,20 @@ Before installing this project, you need to have the following software installe
 
 ## Setting Up the Development Environment
 
-1. First, make sure you have OPAM initialized:
+1. If you're using OPAM for the first time:
    ```bash
    opam init
    eval $(opam env)
    ```
 
-2. Create and switch to a new OPAM switch for OCaml 3.110:
+2. Either use your existing OCaml 3.110 installation, or create a new switch:
    ```bash
+   # Option A: Create new switch (recommended for isolation)
    opam switch create . ocaml-base-compiler.3.110.0
    eval $(opam env)
+   
+   # Option B: Or just ensure you have OCaml 3.110 installed
+   opam switch list
    ```
 
 3. Install the required dependencies:
