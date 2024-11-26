@@ -1,4 +1,24 @@
 open Cs3110finalproject.Adventure
+open Cs3110finalproject.Maze
+
+(** [play_intro_maze state] runs the maze game as an introduction to the
+    adventure. Adjusts the [state] based on the maze result. *)
+let play_intro_maze state =
+  print_endline
+    "\nBefore your adventure begins, you find yourself lost in a maze!";
+  match play_maze () with
+  | Success steps ->
+      print_endline
+        ("Congratulations! You completed the maze in " ^ string_of_int steps
+       ^ " steps.");
+      { state with gold = state.gold + (50 - steps); food = state.food + 1 }
+  | Failure ->
+      print_endline
+        "You failed to escape the maze. You start your journey injured.";
+      {
+        state with
+        player = { state.player with health = state.player.health - 10 };
+      }
 
 (** [display_character_message choice] displayed a message regarding the
     character [choice] that the user selects and their special ability within
@@ -114,4 +134,5 @@ let () =
   let choice = choose_character () in
   let character = create_character choice in
   let initial_state = create_game_state character in
-  game_loop initial_state initial_scenario
+  let state_after_maze = play_intro_maze initial_state in
+  game_loop state_after_maze initial_scenario
