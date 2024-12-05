@@ -1,0 +1,176 @@
+commit 9aa2e11fbdac2db4ea7c3b9a196d5b5af8961a0e
+Merge: 97bd0aa 2bf4265
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Oct 29 14:51:07 2024 -0400
+
+    Merge branch 'main' of https://github.com/tomas-salgado/cs3110-final-project
+
+commit 97bd0aa1967a4647831558bff7a1e76bc6f22fbc
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Oct 29 14:51:03 2024 -0400
+
+    Updating YAML file with YT video, updating main/adventure.ml for winning
+
+commit 2bf4265ed41a00f4cc63ece9739b5d3db31b1e7c
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Tue Oct 29 14:50:15 2024 -0400
+
+    Update INSTALL.md
+
+commit b9ce0fc94e28ed6300cc2cc79708e1fce69e99b0
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Tue Oct 29 14:35:19 2024 -0400
+
+    update documentation
+    -filled out INSTALL.md
+    -update dune-project
+
+commit acb96e850a99761480ee162bf645a2391c5120d6
+Merge: dae4048 873c77c
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Tue Oct 29 14:21:30 2024 -0400
+
+    Merge branch 'main' of https://github.com/tomas-salgado/cs3110-final-project
+
+commit 873c77c108018ce46c401c5e5403497959a7f39e
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Oct 29 14:20:48 2024 -0400
+
+    Fixing ocamlformat file
+
+commit dae4048e76689f46062d53bd974c5f2745dcd2b7
+Merge: 86c4449 0a48261
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Tue Oct 29 14:20:37 2024 -0400
+
+    Merge branch 'main' of https://github.com/tomas-salgado/cs3110-final-project
+
+commit 0a48261135d46e1e85eeb085ceeb6a18bf31beb5
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Oct 29 00:30:16 2024 -0400
+
+    Implementing 2 New Scenarios
+    - Created Mystic Scenario
+    - Created Sneak into Castle Scenario
+    - linked these scenarios with other choices the user can make
+    - Added specifications to all function and types in adventure.mli/main.ml
+    - Updated description of game in YAML file
+
+commit 4468044f3593fc5c03d1d8eb58a541b865d654ad
+Merge: 403e3be 3d0eec0
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Oct 28 23:23:15 2024 -0400
+
+    Merge branch 'main' of https://github.com/tomas-salgado/cs3110-final-project
+
+commit 403e3beadb1945051babaad0c75effd21d71c18c
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Oct 28 23:21:34 2024 -0400
+
+    Changes to courtyard scenario
+
+commit 3d0eec0c1aad38ad48da284a4de404579ea792ff
+Author: Vanessa Morales <vmm62@cornell.edu>
+Date:   Mon Oct 28 22:46:48 2024 -0400
+
+    Add market scenario
+
+commit e9f3e649d99dcb5b500d23ef74c7a4cb893caff8
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Oct 28 18:14:17 2024 -0400
+
+    Added wizard fight scenario
+
+commit 86c4449981c2f241e190b8d0ee2820a16307a0d9
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Mon Oct 28 17:16:14 2024 -0400
+
+    Implement game loop
+    
+    -implemented game loop function that takes users from one scenario to another
+    -currently only handles the castle_gate_scenario and courtyard_scenario
+
+commit a1d3345f4e6e68f62b119debf1a40dcf3e2d69a3
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Mon Oct 28 17:12:54 2024 -0400
+
+    Implement adventure module
+    -contains the types character, location, game_state, choice, scenario
+    -contains values create_character, create_game_state, castle_gate_scenario, courtyard_scenario
+    -implementation in ml file
+
+commit 68efc918d89b72cb49aed2e7b726f1e4970640c0
+Merge: 2353308 e66ebb0
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Mon Oct 28 16:12:18 2024 -0400
+
+    fix file directory structure
+
+commit 2353308d94ed331d9c0a6eb4aeac829940b0e13a
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Mon Oct 28 16:09:36 2024 -0400
+
+    fix directory structure
+
+commit e66ebb06af19dd93b7ee346e9e3d343f2f5f3dc5
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Oct 28 15:33:03 2024 -0400
+
+    Implementing ability for user to implement character choice in terminal initially
+
+commit 18d2c8f1adc57dbca500498c899ae4e1c6b12ee3
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Oct 28 15:22:49 2024 -0400
+
+    Implementing Initial User Selection
+    - Created menu for user to choose a character from in main.ml
+    - Updated YAML file
+
+commit d93a8cd573f1ef02834a063c4309a6d59d3252d0
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Oct 27 22:50:35 2024 -0400
+
+    Adding gitignore, Authors, Installation, and YAML files
+
+commit 94f6e7a8510b35bc078e8e7c232927888e2b30e4
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Oct 27 22:27:39 2024 -0400
+
+    Initializing dune project
+
+commit 55f540e4f38b8620a11885966f1f36960e7781d7
+Merge: ee36d1c f350704
+Author: timholt77 <tch83@cornell.edu>
+Date:   Tue Oct 1 15:03:58 2024 -0400
+
+    Merge remote-tracking branch 'refs/remotes/origin/main'
+
+commit ee36d1c5555eb3f073f5cbc8dec846708fa64d68
+Author: timholt77 <tch83@cornell.edu>
+Date:   Tue Oct 1 14:59:19 2024 -0400
+
+    Tim commit
+
+commit 8133df9ab8500ae598946e234be708a2657bc994
+Author: timholt77 <tch83@cornell.edu>
+Date:   Tue Oct 1 14:45:11 2024 -0400
+
+    Adding Tim name and netID
+
+commit f3507044f98eecd33ae742337feb75357b9f2476
+Author: vanessamorales585 <vmm62@cornell.edu>
+Date:   Tue Oct 1 14:44:25 2024 -0400
+
+    added name
+
+commit 019ab4b9a8b47d705c2d18b3c8465f3b832ee86a
+Author: tomas-salgado <tas268@cornell.edu>
+Date:   Tue Oct 1 14:30:41 2024 -0400
+
+    add name to README
+
+commit 4fbb5ac3b171760a40f5e86ea892b501a0a31816
+Author: Tomas Salgado <91388965+tomas-salgado@users.noreply.github.com>
+Date:   Fri Sep 27 14:38:04 2024 -0400
+
+    Initial commit
