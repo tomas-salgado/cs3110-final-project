@@ -11,6 +11,11 @@ let state_player_test chr expected =
   "property test for character" >:: fun _ ->
   assert_equal expected (create_game_state (create_character chr)).player.name
 
+let invalid_character_test =
+  "invalid character test" >:: fun _ ->
+  assert_raises (Failure "Invalid character choice") (fun () ->
+      create_character 6)
+
 let initial_state_test expected property =
   "initial state" ^ property ^ "test" >:: fun _ ->
   let state = create_game_state (create_character 1) in
@@ -48,6 +53,7 @@ let tests =
          initial_state_test 100 "food";
          initial_state_test 50 "gold";
          rand_state_player_test;
+         invalid_character_test;
        ]
 
 let _ = run_test_tt_main tests
