@@ -3,5 +3,9 @@ type maze_result =
   | Success of int
   | Failure
 
+val initialize_maze : unit -> string array array
+val is_exit_reached : string array array -> int * int -> bool
+val print_maze : string array array -> int * int -> unit
+val move_player : string array array -> int * int -> char -> int * int
+val game_loop : string array array -> int * int -> int -> maze_result
 val play_maze : unit -> maze_result
-(** Starts the maze game in the terminal. *)
