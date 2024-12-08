@@ -56,9 +56,12 @@ val create_game_state : character -> game_state
 (** [create_game_state character] initializes a new game state with preset
     conditions at the beginning of the game for the user. *)
 
-val initial_scenario : scenario
+val initial_scenario_one : scenario
 (** [initial_scenario] is the first scenario displayed to the user to choose
     options from. *)
+
+val initial_scenario_two : scenario
+val initial_scenario_three : scenario
 
 val courtyard_scenario : scenario
 (** [courtyard_scenario] is a scenario involving the castle courtyard displayed

@@ -99,14 +99,39 @@ let display_game_status state =
 let create_scenario description choices = { description; choices }
 let create_choice description consequence = { description; consequence }
 
-let initial_scenario =
+let initial_scenario_one =
   create_scenario
-    "The battle has just broken out and you arrive at the gates of Camelot \
-     Castle. There are a few options for how could proceed. Would you like \
-     to: "
+    "You escape the maze quickly and are able to make it to the gates of \
+     Camelot Castle. The gates are swarming with armed guards There are a few \
+     options for how could proceed. Would you like to: "
     [
-      create_choice "1. Enter King Arthur's Castle through the gates"
+      create_choice
+        "1. Face the guards and enter Camelot Castle through the gates"
         (fun state ->
+          ( {
+              state with
+              player = { state.player with health = state.player.health - 30 };
+            },
+            "Attempt to sneak past but get spotted and take some damage." ));
+      create_choice "2. Look for another entrance to the castle" (fun state ->
+          (state, "You search around and find a potential alternative route."));
+      create_choice "3. Go to the town center where the market is located"
+        (fun state ->
+          (state, "You search around and find the town farmer's market."));
+    ]
+
+let initial_scenario_two =
+  create_scenario
+    "It took you some time to escape the maze, but not too much. After \
+     escaping the \n\
+    \    maze, you arrive at the back entrance to the Camelot Castle, but, \
+     there are multiple \n\
+    \    gardeners armed with shears patrolling the gardens. There are a few \
+     options for how could proceed. Would you like to: "
+    [
+      create_choice
+        "1. Attempt to fight the gardeners and enter the castle through the \
+         back. " (fun state ->
           ( {
               state with
               player = { state.player with health = state.player.health - 30 };
@@ -117,6 +142,27 @@ let initial_scenario =
       create_choice "3. Go to the town center where the market is located"
         (fun state ->
           (state, "You search around and find the town farmer's market."));
+    ]
+
+let initial_scenario_three =
+  create_scenario
+    "It took you a lot of time to escape the maze, it is already nightfall by \
+     the time \n\
+    \    you find your way out. As you walk out of the maze, a dark figure \
+     dressed\n\
+    \    lunges toward you with their sword, beginning a fight. There are some \
+     options for \n\
+    \    how you can proceed: "
+    [
+      create_choice
+        "1. Fight the guards and attempt to enter the castle through the \
+         courtyard" (fun state ->
+          ( { state with player = { state.player with health = 0 } },
+            "The guards overpower you and win the fight, you lose your life in \
+             the process." ));
+      create_choice "2. Sneak your way into the castle" (fun state ->
+          ( { state with food = state.food - 10 },
+            "You manage to blend in but lose some supplies in the process." ));
     ]
 
 let courtyard_scenario =

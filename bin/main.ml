@@ -5,7 +5,10 @@ open Cs3110finalproject.Maze
     adventure. Adjusts the [state] based on the maze result. *)
 let play_intro_maze state =
   print_endline
-    "\nBefore your adventure begins, you find yourself lost in a maze!";
+    "\n\
+     You awake in the Camelot Castle gardens at the very corner of a maze. You\n\
+    \    must navigate and escape the maze in order to escape and save Camelot \
+     from attack.";
   let maze_result = play_maze () in
   match get_final_score maze_result with
   | Some steps ->
@@ -140,9 +143,9 @@ let rec game_loop state current_scenario =
 let choose_initial_scenario maze_result =
   match maze_result with
   | Some (Success steps) ->
-      if steps >= 1 && steps <= 3 then courtyard_scenario
-      else if steps >= 4 && steps <= 5 then wizard_fight_scenario
-      else if steps > 5 then market_scenario
+      if steps >= 1 && steps <= 3 then initial_scenario_one
+      else if steps >= 4 && steps <= 5 then initial_scenario_two
+      else if steps > 5 then initial_scenario_three
       else courtyard_scenario
   | _ -> courtyard_scenario
 
