@@ -17,6 +17,28 @@ let make_pair_test (expected : int * int) (output : int * int) =
   "test" >:: fun _ ->
   assert_equal expected output ~printer:pair_printer ~cmp:pair_comparator
 
+let maze_result_printer (r : maze_result) : string =
+  match r with
+  | Success steps -> "Success " ^ string_of_int steps
+  | Failure -> "Failure"
+
+let maze_result_comparator (r1 : maze_result) (r2 : maze_result) : bool =
+  match (r1, r2) with
+  | Success steps1, Success steps2 -> steps1 = steps2
+  | Failure, Failure -> true
+  | _ -> false
+
+let make_maze_result_test (expected : maze_result) (output : maze_result) =
+  "test" >:: fun _ ->
+  assert_equal expected output ~printer:maze_result_printer
+    ~cmp:maze_result_comparator
+
+let bool_printer b_val = if b_val then "true" else "false"
+
+let make_boolean_test expected_bool actual_bool =
+  "test" >:: fun _ ->
+  assert_equal expected_bool actual_bool ~cmp:Bool.equal ~printer:bool_printer
+
 let array_comparator arr1 arr2 =
   let rows_equal row1 row2 =
     Array.length row1 = Array.length row2 && Array.for_all2 ( = ) row1 row2
@@ -103,6 +125,19 @@ let maze_tests =
      make_pair_test (1, 0) (move_player maze (0, 0) 's'));
     (let maze = initialize_maze () in
      make_pair_test (0, 1) (move_player maze (0, 0) 'd'));
+    (let maze = initialize_maze () in
+     make_pair_test (0, 1) (move_player maze (0, 1) 's'));
+    (let maze = initialize_maze () in
+     make_pair_test (3, 2) (move_player maze (3, 2) 'a'));
+    (let maze = initialize_maze () in
+     make_pair_test (3, 2) (move_player maze (3, 2) 'z'));
+    (let maze = initialize_maze () in
+     make_pair_test (1, 2) (move_player maze (2, 2) 'w'));
+    (let maze = initialize_maze () in
+     make_boolean_test true (is_exit_reached maze (4, 4)));
+    (let maze = initialize_maze () in
+     let result = game_loop maze (4, 4) 0 in
+     make_maze_result_test (Success 0) result);
   ]
 
 let tests = "test suite" >::: adventure_tests @ maze_tests
