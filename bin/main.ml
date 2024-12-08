@@ -113,27 +113,51 @@ let rec game_loop state current_scenario =
   else
     let next_scenario =
       match current_scenario.description with
-      | "The battle has just broken out and you arrive at the gates of Camelot \
-         Castle. There are a few options for how could proceed. Would you like \
-         to: "
-        when choice_num = 1 -> wizard_fight_scenario
-      | "The battle has just broken out and you arrive at the gates of Camelot \
-         Castle. There are a few options for how could proceed. Would you like \
-         to: "
-        when choice_num = 2 -> courtyard_scenario
-      | "The battle has just broken out and you arrive at the gates of Camelot \
-         Castle. There are a few options for how could proceed. Would you like \
-         to: "
+      (* First Option *)
+      | "You escape the maze quickly and are able to make it to the gates of \
+         Camelot Castle. There are guards everywhere. There are a few options \
+         for how can proceed. Would you like to:"
+        when choice_num = 1 -> after_fight_front_entrance_scenario
+      | "You escape the maze quickly and are able to make it to the gates of \
+         Camelot Castle. There are guards everywhere. There are a few options \
+         for how can proceed. Would you like to:"
+        when choice_num = 2 -> side_entrance_scenario
+      | "You escape the maze quickly and are able to make it to the gates of \
+         Camelot Castle. There are guards everywhere. There are a few options \
+         for how can proceed. Would you like to:"
         when choice_num = 3 -> market_scenario
-      | "The castle's Wizard appears and challenges you to a magical duel in \
-         order to pass through the castle's gates. How would you like to \
-         proceed?"
-        when choice_num = 2 -> mystic_scenario
-      | "You entered the town farmer's market. What would you like to do?"
-        when choice_num = 2 || choice_num = 1 -> mystic_scenario
-      | "You walk over to to the castle courtyard, but guards are patrolling. \
-         What would you like to do?"
-        when choice_num = 2 -> sneak_in_scenario
+      (* Second Option *)
+      | "It took you some time to escape the maze. After escaping the maze, \
+         you arrive at the back entrance to Camelot Castle, but there are \
+         multiple gardeners armed with shears patrolling. There are a few \
+         options for how could proceed. Would you like to:"
+        when choice_num = 1 -> mystic_scenario (* change this one *)
+      | "It took you some time to escape the maze. After escaping the maze, \
+         you arrive at the back entrance to Camelot Castle, but there are \
+         multiple gardeners armed with shears patrolling. There are a few \
+         options for how could proceed. Would you like to:"
+        when choice_num = 2 -> side_entrance_scenario
+      | "It took you some time to escape the maze. After escaping the maze, \
+         you arrive at the back entrance to Camelot Castle, but there are \
+         multiple gardeners armed with shears patrolling. There are a few \
+         options for how could proceed. Would you like to:"
+        when choice_num = 3 -> market_scenario
+      (* Third Option *)
+      | "It took you a significant amount of time to escape the maze, it is \
+         already nightfall! As you make your way out of the maze, the castle's \
+         main guard sneak attacks you, beginning a battle. The guard begins to \
+         over power you. How would you like to proceed?:"
+        when choice_num = 1 -> after_fight_guard_in_garden_scenario
+      | "It took you a significant amount of time to escape the maze, it is \
+         already nightfall! As you make your way out of the maze, the castle's \
+         main guard sneak attacks you, beginning a battle. The guard begins to \
+         over power you. How would you like to proceed?:"
+        when choice_num = 2 -> opposing_guards_scenario
+      | "It took you some time to escape the maze. After escaping the maze, \
+         you arrive at the back entrance to Camelot Castle, but there are \
+         multiple gardeners armed with shears patrolling. There are a few \
+         options for how could proceed. Would you like to:"
+        when choice_num = 3 -> market_scenario
       | _ -> current_scenario
     in
     game_loop
