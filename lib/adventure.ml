@@ -18,6 +18,7 @@ type game_state = {
   days_survived : int;
   food : int;
   gold : int;
+  maze_result : Maze.maze_result option;
 }
 
 type choice = {
@@ -88,6 +89,7 @@ let create_game_state character =
     days_survived = 0;
     food = 100;
     gold = 50;
+    maze_result = None;
   }
 
 let display_game_status state =

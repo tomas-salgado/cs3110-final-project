@@ -24,6 +24,7 @@ type game_state = {
   days_survived : int;
   food : int;
   gold : int;
+  maze_result : Maze.maze_result option;
 }
 (** [game_state] is a type representing the state of the game which allows the
     the user to continuously update the state, storing information on the

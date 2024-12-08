@@ -9,3 +9,4 @@ val print_maze : string array array -> int * int -> unit
 val move_player : string array array -> int * int -> char -> int * int
 val game_loop : string array array -> int * int -> int -> maze_result
 val play_maze : unit -> maze_result
+val get_final_score : maze_result -> int option

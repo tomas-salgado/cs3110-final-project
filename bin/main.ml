@@ -6,18 +6,25 @@ open Cs3110finalproject.Maze
 let play_intro_maze state =
   print_endline
     "\nBefore your adventure begins, you find yourself lost in a maze!";
-  match play_maze () with
-  | Success steps ->
+  let maze_result = play_maze () in
+  match get_final_score maze_result with
+  | Some steps ->
       print_endline
         ("Congratulations! You completed the maze in " ^ string_of_int steps
        ^ " steps.");
-      { state with gold = state.gold + (50 - steps); food = state.food + 1 }
-  | Failure ->
+      {
+        state with
+        gold = state.gold + (50 - steps);
+        food = state.food + 1;
+        maze_result = Some (Success steps);
+      }
+  | None ->
       print_endline
         "You failed to escape the maze. You start your journey injured.";
       {
         state with
         player = { state.player with health = state.player.health - 10 };
+        maze_result = Some Failure;
       }
 
 (** [display_character_message choice] displayed a message regarding the
@@ -130,9 +137,19 @@ let rec game_loop state current_scenario =
       { new_state with days_survived = new_state.days_survived + 1 }
       next_scenario
 
+let choose_initial_scenario maze_result =
+  match maze_result with
+  | Some (Success steps) ->
+      if steps >= 1 && steps <= 3 then courtyard_scenario
+      else if steps >= 4 && steps <= 5 then wizard_fight_scenario
+      else if steps > 5 then market_scenario
+      else courtyard_scenario
+  | _ -> courtyard_scenario
+
 let () =
   let choice = choose_character () in
   let character = create_character choice in
   let initial_state = create_game_state character in
   let state_after_maze = play_intro_maze initial_state in
-  game_loop state_after_maze initial_scenario
+  game_loop state_after_maze
+    (choose_initial_scenario state_after_maze.maze_result)

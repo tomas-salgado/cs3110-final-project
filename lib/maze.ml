@@ -60,3 +60,8 @@ let rec game_loop maze player_position steps =
 let play_maze () =
   let maze = initialize_maze () in
   game_loop maze (0, 0) 0
+
+let get_final_score result =
+  match result with
+  | Success steps -> Some steps
+  | Failure -> None
