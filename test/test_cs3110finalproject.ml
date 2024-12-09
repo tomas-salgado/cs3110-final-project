@@ -57,6 +57,20 @@ let make_2d_array_test arr1 arr2 =
   "test" >:: fun _ ->
   assert_equal arr1 arr2 ~cmp:array_comparator ~printer:array_printer
 
+let int_option_cmp opt1 opt2 =
+  match (opt1, opt2) with
+  | Some x, Some y -> x = y
+  | None, None -> true
+  | _, _ -> false
+
+let int_option_printer = function
+  | Some x -> "Some " ^ string_of_int x
+  | None -> "None"
+
+let make_option_test option1 option2 =
+  "test" >:: fun _ ->
+  assert_equal option1 option2 ~cmp:int_option_cmp ~printer:int_option_printer
+
 let choice_generator = QCheck2.Gen.(int_bound 5)
 let choice_list_generator = QCheck2.Gen.(list_size (int_bound 10) (int_bound 5))
 
@@ -136,6 +150,8 @@ let maze_tests =
     (let maze = initialize_maze () in
      let result = game_loop maze (4, 4) 0 in
      make_maze_result_test (Success 0) result);
+    make_option_test (get_final_score (Success 0)) (Some 0);
+    make_option_test (get_final_score Failure) None;
   ]
 
 let tests = "test suite" >::: adventure_tests @ maze_tests
