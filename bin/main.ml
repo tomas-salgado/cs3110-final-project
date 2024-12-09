@@ -14,12 +14,7 @@ let play_intro_maze state =
       print_endline
         ("Congratulations! You completed the maze in " ^ string_of_int steps
        ^ " steps.");
-      {
-        state with
-        gold = state.gold + (50 - steps);
-        food = state.food + 1;
-        maze_result = Some (Success steps);
-      }
+      { state with maze_result = Some (Success steps) }
   | None ->
       print_endline
         "You failed to escape the maze. You start your journey injured.";

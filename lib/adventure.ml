@@ -57,7 +57,7 @@ let create_character choice =
       {
         name = "Alan the Alchemist";
         role = "Alchemist";
-        health = 65;
+        health = 100;
         special_ability = "Potion Crafting";
       }
   | _ -> failwith "Invalid character choice"
@@ -281,9 +281,10 @@ let after_fight_guard_in_garden_scenario =
               state with
               player = { state.player with health = state.player.health - 25 };
               current_location = "Camelot Market";
+              gold = state.gold + 10;
             },
             "You do a dance for the princess and she is impressed. She gives \
-             you 20 gold coins and tells you to go to the market to buy \
+             you 10 pieces of gold and tells you to go to the market to buy \
              yourself something as a treat." ));
       create_choice
         "2. Go back up the wall and leave to go to the town's market."
