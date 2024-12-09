@@ -1,6 +1,7 @@
 open OUnit2
 open Cs3110finalproject.Adventure
 open Cs3110finalproject.Maze
+open Cs3110finalproject.Wordscramble
 
 let int_printer (i : int) : string = string_of_int i
 
@@ -154,5 +155,21 @@ let maze_tests =
     make_option_test (get_final_score Failure) None;
   ]
 
-let tests = "test suite" >::: adventure_tests @ maze_tests
+let word_scramble_tests =
+  [
+    make_boolean_test true (List.length words_bank > 0);
+    (let first_list = [ 1; 2; 3; 4; 5; 6; 7 ] in
+     let shuffled_list = shuffle first_list in
+     make_boolean_test true (first_list <> shuffled_list));
+    (let first_list = [ "a"; "b"; "c"; "d"; "e" ] in
+     let shuffled_list = shuffle first_list in
+     make_int_test (List.length shuffled_list) (List.length first_list));
+    (let word = pick_random_word () in
+     make_boolean_test true (List.mem word words_bank));
+    (let word = "medevial" in
+     let scrambled_word = scramble_word word in
+     make_int_test (String.length word) (String.length scrambled_word));
+  ]
+
+let tests = "test suite" >::: adventure_tests @ maze_tests @ word_scramble_tests
 let _ = run_test_tt_main tests
