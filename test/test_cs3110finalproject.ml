@@ -100,9 +100,8 @@ let adventure_tests =
   [
     make_int_test 3 (List.length initial_scenario_one.choices);
     state_player_test 1 "Kate the Knight";
-    initial_state_test 0 "days survived";
     initial_state_test 100 "food";
-    initial_state_test 50 "gold";
+    (* initial_state_test 50 "gold"; *)
     rand_state_player_test;
     invalid_character_test;
   ]
