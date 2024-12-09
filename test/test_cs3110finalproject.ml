@@ -113,10 +113,10 @@ let rand_state_player_test =
 
 let adventure_tests =
   [
-    make_int_test 3 (List.length initial_scenario_one.choices);
+    make_int_test 2 (List.length initial_scenario_one.choices);
     state_player_test 1 "Kate the Knight";
     initial_state_test 100 "food";
-    (* initial_state_test 50 "gold"; *)
+    initial_state_test 20 "gold";
     rand_state_player_test;
     invalid_character_test;
   ]
@@ -126,11 +126,16 @@ let maze_tests =
     (let maze = initialize_maze () in
      let expected_maze =
        [|
-         [| "S"; " "; " "; " "; "X" |];
-         [| " "; "X"; " "; "X"; " " |];
-         [| " "; " "; " "; " "; " " |];
-         [| "X"; "X"; " "; "X"; " " |];
-         [| " "; " "; " "; " "; "E" |];
+         [| "S"; " "; "X"; " "; " "; "X"; " "; " "; " "; " " |];
+         [| " "; "X"; "X"; " "; "X"; " "; "X"; "X"; " "; " " |];
+         [| " "; " "; " "; " "; " "; " "; " "; "X"; " "; " " |];
+         [| " "; "X"; "X"; "X"; "X"; " "; "X"; " "; " "; " " |];
+         [| " "; " "; " "; " "; "X"; " "; " "; " "; "X"; " " |];
+         [| "X"; "X"; "X"; " "; " "; " "; "X"; " "; "X"; " " |];
+         [| " "; " "; " "; " "; " "; "X"; "X"; " "; " "; " " |];
+         [| " "; "X"; "X"; "X"; " "; " "; " "; " "; "X"; " " |];
+         [| " "; " "; " "; "X"; " "; "X"; "X"; " "; " "; " " |];
+         [| " "; " "; " "; " "; " "; " "; " "; " "; " "; "E" |];
        |]
      in
      make_2d_array_test maze expected_maze);
@@ -141,15 +146,15 @@ let maze_tests =
     (let maze = initialize_maze () in
      make_pair_test (0, 1) (move_player maze (0, 1) 's'));
     (let maze = initialize_maze () in
-     make_pair_test (3, 2) (move_player maze (3, 2) 'a'));
+     make_pair_test (0, 3) (move_player maze (0, 3) 'a'));
     (let maze = initialize_maze () in
      make_pair_test (3, 2) (move_player maze (3, 2) 'z'));
     (let maze = initialize_maze () in
-     make_pair_test (1, 2) (move_player maze (2, 2) 'w'));
+     make_pair_test (2, 2) (move_player maze (2, 2) 'w'));
     (let maze = initialize_maze () in
-     make_boolean_test true (is_exit_reached maze (4, 4)));
+     make_boolean_test true (is_exit_reached maze (9, 9)));
     (let maze = initialize_maze () in
-     let result = game_loop maze (4, 4) 0 in
+     let result = game_loop maze (9, 9) 0 in
      make_maze_result_test (Success 0) result);
     make_option_test (get_final_score (Success 0)) (Some 0);
     make_option_test (get_final_score Failure) None;
