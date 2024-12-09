@@ -206,7 +206,8 @@ let after_fight_front_entrance_scenario =
          secret tunnels. " (fun state ->
           ( { state with current_location = "Camelot Castle, Grand Entrance" },
             "You go to the catacombs and begin walking around. Its dark and \
-             cold and you get lost." ));
+             cold and you get lost. As you wander the catacombs you cross \
+             paths with the castle's Wizard." ));
     ]
 
 let side_entrance_scenario =
@@ -226,7 +227,7 @@ let side_entrance_scenario =
               current_location = "Queen's Quarters";
             },
             "The queen is not impressed by your jokes and tells the guards to \
-             throw you out. You lose 60 health points. 🤕" ));
+             take you to the castle's jail. You lose 60 health points. 🤕" ));
       create_choice
         "2. Show the queen a special talent and hope this satifies her."
         (fun state ->
@@ -299,8 +300,8 @@ let after_fight_guard_in_garden_scenario =
               current_location = "Princess's Courtyard";
             },
             "You do a dance for the princess but she is not impressed. She \
-             knows how to fight and kicks you while you run away. You lose 25 \
-             health points. 🤕" ));
+             knows how to fight and kicks you down, calling her guards to take \
+             you to the castle jail. You lose 25 health points. 🤕" ));
       create_choice "2. Just run away and hope no one catches you."
         (fun state ->
           ( { state with current_location = "Princess's Courtyard" },
@@ -336,24 +337,8 @@ let wizard_fight_scenario =
               food = state.food - 20;
               current_location = "Wizard's Tower";
             },
-            "You leave but trip and fall down the long staircase, injuring \
-             yourself. You lose 20 health points. 🤕" ));
-    ]
-
-let courtyard_scenario =
-  create_scenario
-    "You walk over to the castle courtyard, but guards are patrolling. What \
-     would you like to do?"
-    [
-      create_choice
-        "1. Fight the guards and attempt to enter the castle through the \
-         courtyard" (fun state ->
-          ( { state with player = { state.player with health = 0 } },
-            "The guards overpower you and win the fight, you lose your life in \
-             the process." ));
-      create_choice "2. Sneak your way into the castle" (fun state ->
-          ( { state with food = state.food - 10 },
-            "You manage to blend in but lose some supplies in the process." ));
+            "You try to escape but the wizard grabs you and keeps you in his \
+             tower. You lose 20 health points. 🤕" ));
     ]
 
 let opposing_guards_scenario =
@@ -364,16 +349,7 @@ let opposing_guards_scenario =
      do not notice you. What would you like to do?:"
     [
       create_choice
-        "1. See if you can blend in with the knights from Cornwall to find out \
-         their battle secrets. " (fun state ->
-          ( {
-              state with
-              player = { state.player with health = 120 };
-              current_location = "Camelot Lake";
-            },
-            "You have saved Camelot and the lives of millions of people." ));
-      create_choice
-        "2. Leave and go for a swim in the lake to wash yourself off after a \
+        "1. Leave and go for a swim in the lake to wash yourself off after a \
          long day." (fun state ->
           ( {
               state with
@@ -382,7 +358,7 @@ let opposing_guards_scenario =
             },
             "Your decisions are not well informed and you cause the downfall \
              of yourself and Camelot as a whole." ));
-      create_choice "3. Battle these knights and see if you can defeat them. "
+      create_choice "2. Battle these knights and see if you can defeat them. "
         (fun state ->
           ( {
               state with
@@ -397,29 +373,84 @@ let mystic_scenario =
   create_scenario
     "You walk to the nearby fortune teller's shop. In the shop you encounter a \
      mystic who says she has been expecting you. The mystic says she will show \
-     you how to save Camelot. What do you want to do? "
+     you how to save Camelot."
     [
-      create_choice "1. See what the mystic has to say and try to save Camelot."
-        (fun state ->
-          ( {
-              state with
-              player = { state.player with health = 120 };
-              current_location = "Fortune Teller's Shop";
-            },
-            "You have saved Camelot and the lives of millions of people." ));
-      create_choice "2. Don't take the Mystic's advice, run away." (fun state ->
-          ( {
-              state with
-              player = { state.player with health = 0 };
-              current_location = "Fortune Teller's Shop";
-            },
-            "Your decisions are not well informed and you cause the downfall \
-             of yourself and Camelot as a whole." ));
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
     ]
 
-let final_scenario =
-  create_scenario "final_scenario"
+let king_scenario =
+  create_scenario
+    "The queen is very pleased with your display of talent and calls in the \
+     King of Camelot to meet you. You explain the situation to the king and he \
+     tells you that he knows how to help you save the Kingdom of Camelot"
     [
-      create_choice "1. Time to end." (fun state ->
-          (state, "You have saved Camelot and the lives of millions of people."));
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
+    ]
+
+let king_scenario_2 =
+  create_scenario
+    "You dress as a butler and another servant hands you a platter and points \
+     you to a room you need to take it. As you enter the room you realize you \
+     are serving the king. You break cover and explain your situation to the \
+     King. He tells you that he knows how to help you save the Kingdom of \
+     Camelot "
+    [
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
+    ]
+
+let jail_scenario =
+  create_scenario
+    "While sitting in the Castle jail cell recovering from the day, you notice \
+     two other people. One is an old man who says he has lived in Camelot for \
+     over 100 years. You explain your situation and how you are tring to save \
+     Camelot to him and he says he wants to provide you with adviceo on how to \
+     win."
+    [
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
+    ]
+
+let wizard_end_scenario =
+  create_scenario
+    "The wizard then tells you he knows how to help you end this war."
+    [
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
+    ]
+
+let king_end_scenario =
+  create_scenario
+    "The king then tells you he knows how to help you end this war."
+    [
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
+    ]
+
+let fight_opposing_scenario =
+  create_scenario
+    "You begin to battle the opposing side but in order to win you must solve \
+     this puzzle."
+    [
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
+    ]
+
+let mystic_lake_scenario =
+  create_scenario
+    "A mystic walks out the lake as you approach for a swim and tells you she \
+     can help you save camelot."
+    [
+      create_choice
+        "1. Please enter 1 to solve a word scrambling riddle that will unlock \
+         the power to save Camelot" (fun state -> (state, "Never Reached"));
     ]
