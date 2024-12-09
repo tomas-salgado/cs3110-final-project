@@ -5,8 +5,8 @@ open Cs3110finalproject.Wordscramble
 let play_intro_maze state =
   print_endline
     "\n\
-     You awake in the Camelot Castle gardens at the very corner of a maze. You\n\
-    \    must navigate and escape the maze in order to escape and save Camelot \
+     You awake in the Camelot Castle gardens at the very corner of a maze. You \
+     must navigate and escape the maze in order to escape and save Camelot \
      from attack.";
   let maze_result = play_maze () in
   match get_final_score maze_result with
@@ -35,16 +35,8 @@ let play_word_scramble_game state =
      fate of Camelot!";
   let result = play_word_scramble () in
   match result with
-  | true ->
-      print_endline
-        "You successfully unscrambled the word! Camelot is saved. You are a \
-         hero!";
-      { state with player = { state.player with health = 120 } }
-  | false ->
-      print_endline
-        "You failed to unscramble the word. Camelot has fallen. Better luck \
-         next time.";
-      { state with player = { state.player with health = 0 } }
+  | true -> { state with player = { state.player with health = 120 } }
+  | false -> { state with player = { state.player with health = 0 } }
 
 (** [display_character_message choice] displayed a message regarding the
     character [choice] that the user selects and their special ability within
@@ -102,11 +94,11 @@ let rec get_valid_choice max_choice =
 (** [display_game_status state] displays the [state] of the user in the game
     inclduing days survived, health, location, food, and gold. *)
 let display_game_status state =
+  print_endline "";
   print_endline ("Health: " ^ string_of_int state.player.health);
   print_endline ("Location: " ^ state.current_location);
   print_endline ("Food: " ^ string_of_int state.food);
   print_endline ("Gold: " ^ string_of_int state.gold);
-  print_endline "";
   print_endline ""
 
 (** [game_loop state current_scenario] loop that allows the user to interact
@@ -126,7 +118,6 @@ let rec game_loop state current_scenario =
 
   if new_state.player.health <= 0 then
     print_endline "\nGame Over! You have fallen in battle."
-  else if new_state.player.health = 120 then print_endline "\n YOU WIN!"
   else if
     current_scenario.description
     = "You walk to the nearby fortune teller's shop. In the shop you encounter \
@@ -162,8 +153,13 @@ let rec game_loop state current_scenario =
   then
     let final_state = play_word_scramble_game new_state in
     if final_state.player.health = 120 then
-      print_endline "\nYOU WIN! Camelot is saved!"
-    else print_endline "\nYOU LOSE! Camelot has fallen."
+      print_endline
+        "You successfully unscrambled the word! Camelot is saved. You are a \
+         hero!"
+    else
+      print_endline
+        "You failed to unscramble the word. Camelot has fallen. Better luck \
+         next time."
   else
     let next_scenario =
       match current_scenario.description with
@@ -175,28 +171,16 @@ let rec game_loop state current_scenario =
       | "You escape the maze quickly and are able to make it to the gates of \
          Camelot Castle. There are guards everywhere. There are a few options \
          for how can proceed. Would you like to:"
-        when choice_num = 2 -> side_entrance_scenario
-      | "You escape the maze quickly and are able to make it to the gates of \
-         Camelot Castle. There are guards everywhere. There are a few options \
-         for how can proceed. Would you like to:"
-        when choice_num = 3 -> market_scenario
+        when choice_num = 2 -> garden_scenario
+      | "You walk into the castle's front entrance but realize you look out of \
+         place. You do not want people to know you are an intruder! How would \
+         you like to proceed?:"
+        when choice_num = 1 || choice_num = 2 -> side_entrance_scenario
+      | "You arrive at the back entrance to Camelot Castle, but there are \
+         multiple gardeners armed with shears patrolling. There are a few \
+         options for how could proceed. Would you like to:"
+        when choice_num = 1 || choice_num = 2 -> side_entrance_scenario
       (* Second Option *)
-      | "It took you some time to escape the maze. After escaping the maze, \
-         you arrive at the back entrance to Camelot Castle, but there are \
-         multiple gardeners armed with shears patrolling. There are a few \
-         options for how could proceed. Would you like to:"
-        when choice_num = 1 -> wizard_fight_scenario
-      | "It took you some time to escape the maze. After escaping the maze, \
-         you arrive at the back entrance to Camelot Castle, but there are \
-         multiple gardeners armed with shears patrolling. There are a few \
-         options for how could proceed. Would you like to:"
-        when choice_num = 2 -> side_entrance_scenario
-      | "It took you some time to escape the maze. After escaping the maze, \
-         you arrive at the back entrance to Camelot Castle, but there are \
-         multiple gardeners armed with shears patrolling. There are a few \
-         options for how could proceed. Would you like to:"
-        when choice_num = 3 -> market_scenario
-      (* Third Option *)
       | "It took you a significant amount of time to escape the maze, it is \
          already nightfall! As you make your way out of the maze, the castle's \
          main guard sneak attacks you, beginning a battle. The guard begins to \
@@ -207,63 +191,34 @@ let rec game_loop state current_scenario =
          main guard sneak attacks you, beginning a battle. The guard begins to \
          over power you. How would you like to proceed?:"
         when choice_num = 2 -> opposing_guards_scenario
-      | "It took you a significant amount of time to escape the maze, it is \
-         already nightfall! As you make your way out of the maze, the castle's \
-         main guard sneak attacks you, beginning a battle. The guard begins to \
-         over power you. How would you like to proceed?:"
-        when choice_num = 3 -> market_scenario
+      | "You walk to the nearby lake where you see smoke emerging. As you \
+         approach, you see that it is a group of knights from the opposing \
+         Kingdom of Cornwall, they have started a fire and camped out near the \
+         lake. They do not notice you. What would you like to do?:"
+        when choice_num = 1 || choice_num = 2 -> market_scenario
+      | "After battling the guard and barely escaping, you decide to scale and \
+         climb a shorter part of the castle wall in order to get in. You climb \
+         into the castle's courtyard. As you are passing through the courtyard \
+         you encounter the castle's princess who is starteled and starts to \
+         yell for help. What would you like to do next?"
+        when choice_num = 1 || choice_num = 2 -> market_scenario
+      (* Third Option *)
       | "You entered the town farmer's market. What would you like to do?"
         when choice_num = 1 -> mystic_scenario
       | "You entered the town farmer's market. What would you like to do?"
         when choice_num = 2 -> mystic_scenario
-      | "You enter the castle through an unlocked door within the attached \
-         greenhouse. You enter immediately into the living room where the \
-         King's wife, the queen, is drinking tea surrounded by her guards. She \
-         is startled by you, but says that if you entertain her she will let \
-         you proceed. What would you like to do? :"
+      | "You begin wandering around the castle and opening random doors. You \
+         accidentally enter the room where the King's wife, the queen, is \
+         drinking tea surrounded by her guards. She is startled by you, but \
+         says that if you entertain her she will let you proceed. What would \
+         you like to do? :"
         when choice_num = 2 -> king_scenario
-      | "You enter the castle through an unlocked door within the attached \
-         greenhouse. You enter immediately into the living room where the \
-         King's wife, the queen, is drinking tea surrounded by her guards. She \
-         is startled by you, but says that if you entertain her she will let \
-         you proceed. What would you like to do? :"
+      | "You begin wandering around the castle and opening random doors. You \
+         accidentally enter the room where the King's wife, the queen, is \
+         drinking tea surrounded by her guards. She is startled by you, but \
+         says that if you entertain her she will let you proceed. What would \
+         you like to do? :"
         when choice_num = 1 || choice_num = 3 -> jail_scenario
-      | "You walk into the castle but realize you look out of place. You do \
-         not want people to know you are an intruder! How would you like to \
-         proceed?:"
-        when choice_num = 1 -> king_scenario_2
-      | "You walk into the castle but realize you look out of place. You do \
-         not want people to know you are an intruder! How would you like to \
-         proceed?:"
-        when choice_num = 2 -> wizard_end_scenario
-      | "Once you get past the gardeners and enter the castle, there is only \
-         one entrance to go through, it is a long spiraling staircase leading \
-         to the castle's tallest tower. You climb the stairs and arrive at the \
-         top of the tower. The castle's wizard is there and he challenge's you \
-         to a duel. What would you like to do?:"
-        when choice_num = 1 || choice_num = 2 -> wizard_end_scenario
-      | "After battling the guard and barely escaping, you decide to scale and \
-         climb a shorter part of the castle wall in order to get in. You climb \
-         into the castle's courtyard. As you are passing through the courtyard \
-         you encounter the castle's princess who is starteled and starts to \
-         yell for help. What would you like to do next?"
-        when choice_num = 1 -> jail_scenario
-      | "After battling the guard and barely escaping, you decide to scale and \
-         climb a shorter part of the castle wall in order to get in. You climb \
-         into the castle's courtyard. As you are passing through the courtyard \
-         you encounter the castle's princess who is starteled and starts to \
-         yell for help. What would you like to do next?"
-        when choice_num = 2 -> king_scenario_2
-      | "You walk to the nearby lake where you see smoke emerging. As you \
-         approach, you see that it is a group of knights from the opposing \
-         Kingdom of Cornwall, they have started a fire and camped out near the \
-         lake. They do not notice you. What would you like to do?:"
-        when choice_num = 1 -> mystic_lake_scenario
-      | "You walk to the nearby lake where you see smoke emerging. As you \
-         approach, you see that it is a group of knights from the opposing \
-         Kingdom of Cornwall, they have started a fire and camped out near the \
-         lake. They do not notice you. What would you like to do?:"
-        when choice_num = 2 -> fight_opposing_scenario
       | _ -> current_scenario
     in
     game_loop new_state next_scenario
@@ -271,11 +226,10 @@ let rec game_loop state current_scenario =
 let choose_initial_scenario maze_result =
   match maze_result with
   | Some (Success steps) ->
-      if steps >= 1 && steps <= 3 then initial_scenario_one
-      else if steps >= 4 && steps <= 5 then initial_scenario_two
-      else if steps > 5 then initial_scenario_three
-      else mystic_lake_scenario (* CHANGE THIS LATER ???*)
-  | _ -> mystic_lake_scenario (* CHANGE THIS LATER ???*)
+      if steps < 20 then initial_scenario_one
+      else if steps >= 20 then initial_scenario_two
+      else mystic_lake_scenario
+  | _ -> mystic_lake_scenario
 
 let () =
   let choice = choose_character () in

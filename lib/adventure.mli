@@ -2,7 +2,6 @@ type character = {
   name : string;
   role : string;
   health : int;
-  strength : int;
   special_ability : string;
 }
 (** [character] is a type representing a character that the user can choose
@@ -51,7 +50,6 @@ val initial_scenario_one : scenario
     options from. *)
 
 val initial_scenario_two : scenario
-val initial_scenario_three : scenario
 val after_fight_front_entrance_scenario : scenario
 val side_entrance_scenario : scenario
 val opposing_guards_scenario : scenario
@@ -62,6 +60,7 @@ val king_scenario_2 : scenario
 val wizard_end_scenario : scenario
 val fight_opposing_scenario : scenario
 val mystic_lake_scenario : scenario
+val garden_scenario : scenario
 
 val wizard_fight_scenario : scenario
 (** [wizard_fight_scenario] is a scenario involving fighting a wizard that is

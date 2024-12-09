@@ -54,13 +54,13 @@ let play_word_scramble () =
         original_word;
       false)
     else (
-      Printf.printf "Enter your guess (%d attempts left): " attempts_left;
+      Printf.printf "Enter your guess (%d attempt(s) left): " attempts_left;
       let guess = read_line () in
       if String.lowercase_ascii guess = original_word then (
         Printf.printf "Congratulations! You unscrambled the word!\n";
         true)
       else (
-        Printf.printf "Incorrect guess. Try again.\n";
+        Printf.printf "Incorrect guess.\n";
         guess_loop (attempts_left - 1)))
   in
   guess_loop 3

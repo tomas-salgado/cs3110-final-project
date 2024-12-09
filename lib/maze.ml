@@ -4,11 +4,16 @@ type maze_result =
 
 let initialize_maze () =
   [|
-    [| "S"; " "; " "; " "; "X" |];
-    [| " "; "X"; " "; "X"; " " |];
-    [| " "; " "; " "; " "; " " |];
-    [| "X"; "X"; " "; "X"; " " |];
-    [| " "; " "; " "; " "; "E" |];
+    [| "S"; " "; "X"; " "; " "; "X"; " "; " "; " "; " " |];
+    [| " "; "X"; "X"; " "; "X"; " "; "X"; "X"; " "; " " |];
+    [| " "; " "; " "; " "; " "; " "; " "; "X"; " "; " " |];
+    [| " "; "X"; "X"; "X"; "X"; " "; "X"; " "; " "; " " |];
+    [| " "; " "; " "; " "; "X"; " "; " "; " "; "X"; " " |];
+    [| "X"; "X"; "X"; " "; " "; " "; "X"; " "; "X"; " " |];
+    [| " "; " "; " "; " "; " "; "X"; "X"; " "; " "; " " |];
+    [| " "; "X"; "X"; "X"; " "; " "; " "; " "; "X"; " " |];
+    [| " "; " "; " "; "X"; " "; "X"; "X"; " "; " "; " " |];
+    [| " "; " "; " "; " "; " "; " "; " "; " "; " "; "E" |];
   |]
 
 let is_exit_reached maze (x, y) = maze.(x).(y) = "E"
@@ -16,7 +21,7 @@ let is_exit_reached maze (x, y) = maze.(x).(y) = "E"
 let print_maze maze player_position =
   let height = Array.length maze in
   let width = Array.length maze.(0) in
-  print_endline (String.make ((width * 2) + 1) '+');
+  print_endline (String.make ((width * 2) + 2) '+');
   for i = 0 to height - 1 do
     print_string "|";
     for j = 0 to width - 1 do
@@ -25,7 +30,7 @@ let print_maze maze player_position =
     done;
     print_endline "|"
   done;
-  print_endline (String.make ((width * 2) + 1) '+')
+  print_endline (String.make ((width * 2) + 2) '+')
 
 let move_player maze player_position direction =
   let x, y = player_position in
