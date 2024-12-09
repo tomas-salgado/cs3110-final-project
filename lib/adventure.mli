@@ -56,15 +56,7 @@ val opposing_guards_scenario : scenario
 val after_fight_guard_in_garden_scenario : scenario
 val king_scenario : scenario
 val jail_scenario : scenario
-val king_scenario_2 : scenario
-val wizard_end_scenario : scenario
-val fight_opposing_scenario : scenario
-val mystic_lake_scenario : scenario
 val garden_scenario : scenario
-
-val wizard_fight_scenario : scenario
-(** [wizard_fight_scenario] is a scenario involving fighting a wizard that is
-    displayed to the user to choose options from. *)
 
 val market_scenario : scenario
 (** [market_scenario] is a scenario involving going to the farmers market

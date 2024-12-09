@@ -228,8 +228,8 @@ let choose_initial_scenario maze_result =
   | Some (Success steps) ->
       if steps < 20 then initial_scenario_one
       else if steps >= 20 then initial_scenario_two
-      else mystic_lake_scenario
-  | _ -> mystic_lake_scenario
+      else mystic_scenario
+  | _ -> mystic_scenario
 
 let () =
   let choice = choose_character () in

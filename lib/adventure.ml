@@ -86,11 +86,11 @@ let initial_scenario_one =
         "1. Face the guards in battle and enter Camelot Castle through the \
          front entrance. ⚔️" (fun state ->
           if state.player.name = "Kate the Knight" then
-            ( { state with current_location = "Castle Gardens" },
+            ( { state with current_location = "Camelot Castle" },
               "As a skilled Knight, you are able to fend off the guards and \
                enter through the castle's front gates. Well done Kate! ♞" )
           else if state.player.name = "Abigail the Archer" then
-            ( { state with current_location = "Castle Gardens" },
+            ( { state with current_location = "Camelot Castle" },
               "As a skilled Archer, you are able to use your bow and arrow to \
                fend off the guards and enter through the castle's front gates. \
                Well done Abigail! 🏹" )
@@ -98,7 +98,7 @@ let initial_scenario_one =
             ( {
                 state with
                 player = { state.player with health = state.player.health - 50 };
-                current_location = "Castle Gardens";
+                current_location = "Camelot Castle";
               },
               "Your character is not skilled in battle, you make it through \
                the front gates, but the guards do some serious damage to you! \
@@ -106,7 +106,7 @@ let initial_scenario_one =
       create_choice
         "2. Go to the back entrance of Camelot Castle and try to enter the \
          castle there. 🪴" (fun state ->
-          ( state,
+          ( { state with current_location = "Camelot Castle Gardens" },
             "You begin walking around to the garden to see if you can enter \
              from there." ));
     ]
@@ -121,7 +121,7 @@ let garden_scenario =
         "1. Attempt to sneak past the gardeners and enter the castle through \
          the back entrance 👨‍🌾" (fun state ->
           if state.player.name = "Max the Monk" then
-            ( { state with current_location = "Castle Gardens" },
+            ( { state with current_location = "Camelot Castle" },
               "As a monk, your calming demeanor helps you to blend in with and \
                sneak past the guards, entering the castle through the back \
                entrance. 😌" )
@@ -134,7 +134,7 @@ let garden_scenario =
               "You successfully sneak into the castle but get spotted and take \
                some damage. You lose 50 health points. 🤕" ));
       create_choice "2. Look for another entrance to the castle 👀" (fun state ->
-          ( { state with current_location = "Castle Gardens" },
+          ( { state with current_location = "Camelot Castle" },
             "You search around and find a potential alternative route through \
              a side door to the castle and enter there unbothered." ));
     ]
@@ -150,7 +150,7 @@ let initial_scenario_two =
         "1. Continue fighting the guard in hopes of winning the battle. ⚔️"
         (fun state ->
           if state.player.name = "Walter the Wizard" then
-            ( { state with current_location = "Castle Gardens" },
+            ( { state with current_location = "Camelot Castle" },
               "As a wizard, you cast a spell on the guard, putting him to \
                sleep and winning the attack 😴" )
           else if state.player.name = "Alan the Alchemist" then
@@ -168,7 +168,7 @@ let initial_scenario_two =
       create_choice
         "2. Run towards the lake behind the Castle Gardens where you see smoke \
          from amongst the 👀" (fun state ->
-          ( { state with current_location = "Castle Gardens" },
+          ( { state with current_location = "Castle Lakes" },
             "Because it's so dark outside you are not able to find an \
              alternative entrance to the castle. You decide to walk towards a \
              nearby lake where you see smoke from a fire." ));
@@ -183,16 +183,15 @@ let after_fight_front_entrance_scenario =
       create_choice
         "1. Try to find some servant's clothes to blend in with the castle's \
          staff." (fun state ->
-          ( { state with current_location = "Camelot Castle, Grand Entrance" },
+          ( { state with current_location = "Queen's Quarters" },
             "You find some butler's clothes and put them on. You begin walking \
              around the castle in disguise." ));
       create_choice
         "2. Go to the catacombs of the castle to navigate the castle through \
          secret tunnels. " (fun state ->
-          ( { state with current_location = "Camelot Castle, Grand Entrance" },
+          ( { state with current_location = "Queen's Quarters" },
             "You go to the catacombs and begin walking around. Its dark and \
-             cold and you get lost. As you wander the catacombs you cross \
-             paths with the castle's Wizard." ));
+             cold and you get lost." ));
     ]
 
 let side_entrance_scenario =
@@ -208,7 +207,7 @@ let side_entrance_scenario =
           ( {
               state with
               player = { state.player with health = state.player.health - 20 };
-              current_location = "Queen's Quarters";
+              current_location = "Camelot Jail";
             },
             "The queen is not impressed by your jokes and tells the guards to \
              take you to the castle's jail. You lose 60 health points. 🤕" ));
@@ -244,7 +243,7 @@ let side_entrance_scenario =
           ( {
               state with
               player = { state.player with health = state.player.health - 30 };
-              current_location = "Queen's Quarters";
+              current_location = "Castle Jail";
             },
             "The queen's guards beat you up really badly. You wake up in the \
              castle's jail. You lose 30 health points!!! 🤕" ));
@@ -260,7 +259,7 @@ let market_scenario =
               food = state.food + 20;
               gold = state.gold - 10;
               player = { state.player with health = state.player.health + 20 };
-              current_location = "Camelot Farmer's Market";
+              current_location = "Camelot Fortune Teller's Shop";
             },
             "You bought some bread and vegetables for 10 pieces of gold. You \
              eat the food and gain 20 health points! 🍞" ));
@@ -281,7 +280,7 @@ let after_fight_guard_in_garden_scenario =
           ( {
               state with
               player = { state.player with health = state.player.health - 25 };
-              current_location = "Princess's Courtyard";
+              current_location = "Camelot Market";
             },
             "You do a dance for the princess and she is impressed. She gives \
              you 20 gold coins and tells you to go to the market to buy \
@@ -304,15 +303,14 @@ let opposing_guards_scenario =
       create_choice
         "1. Leave and go to the market to buy some food and get your strength \
          up." (fun state ->
-          ( { state with current_location = "Camelot Lake" },
-            "Your decisions are not well informed and you cause the downfall \
-             of yourself and Camelot as a whole." ));
+          ( { state with current_location = "Camelot Market" },
+            "You walk to the market which is near the town's center." ));
       create_choice
         "2. Blend in with the crowd and walk with them as they go towards the \
          town center. " (fun state ->
-          ( { state with current_location = "Camelot Lake" },
-            "Your decisions are not well informed and you cause the downfall \
-             of yourself and Camelot as a whole." ));
+          ( { state with current_location = "Camelot Market" },
+            "You walk with the group of opposing knights towards the town \
+             market." ));
     ]
 
 let mystic_scenario =
@@ -323,7 +321,7 @@ let mystic_scenario =
     [
       create_choice
         "1. Please enter 1 to solve a word scrambling riddle that will unlock \
-         the power to save Camelot" (fun state -> (state, "Never Reached"));
+         the power to save Camelot" (fun state -> (state, ""));
     ]
 
 let king_scenario =
@@ -334,7 +332,7 @@ let king_scenario =
     [
       create_choice
         "1. Please enter 1 to solve a word scrambling riddle that will unlock \
-         the power to save Camelot" (fun state -> (state, "Never Reached"));
+         the power to save Camelot" (fun state -> (state, ""));
     ]
 
 let jail_scenario =
@@ -347,5 +345,5 @@ let jail_scenario =
     [
       create_choice
         "1. Please enter 1 to solve a word scrambling riddle that will unlock \
-         the power to save Camelot" (fun state -> (state, "Never Reached"));
+         the power to save Camelot" (fun state -> (state, ""));
     ]
