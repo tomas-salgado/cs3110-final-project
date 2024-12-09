@@ -72,6 +72,13 @@ let make_option_test option1 option2 =
   "test" >:: fun _ ->
   assert_equal option1 option2 ~cmp:int_option_cmp ~printer:int_option_printer
 
+let string_comparator (s1 : string) (s2 : string) : bool = String.equal s1 s2
+let string_printer (s : string) : string = "\"" ^ s ^ "\""
+
+let make_string_test str1 str2 =
+  "test" >:: fun _ ->
+  assert_equal str1 str2 ~cmp:string_comparator ~printer:string_printer
+
 let choice_generator = QCheck2.Gen.(int_bound 5)
 let choice_list_generator = QCheck2.Gen.(list_size (int_bound 10) (int_bound 5))
 
@@ -119,8 +126,18 @@ let adventure_tests =
     initial_state_test 20 "gold";
     rand_state_player_test;
     invalid_character_test;
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     make_string_test "Camelot Castle Garden Maze" state.current_location);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     make_int_test 100 state.food);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     make_int_test 20 state.gold);
   ]
 
+(* assert_equal kate state.player; *)
 let maze_tests =
   [
     (let maze = initialize_maze () in
