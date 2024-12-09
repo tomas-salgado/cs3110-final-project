@@ -1,8 +1,7 @@
 open Cs3110finalproject.Adventure
 open Cs3110finalproject.Maze
+open Cs3110finalproject.Wordscramble
 
-(** [play_intro_maze state] runs the maze game as an introduction to the
-    adventure. Adjusts the [state] based on the maze result. *)
 let play_intro_maze state =
   print_endline
     "\n\
@@ -29,6 +28,23 @@ let play_intro_maze state =
         player = { state.player with health = state.player.health - 10 };
         maze_result = Some Failure;
       }
+
+let play_word_scramble_game state =
+  print_endline
+    "You have one final challenge: a magical word scramble that determines the \
+     fate of Camelot!";
+  let result = play_word_scramble () in
+  match result with
+  | true ->
+      print_endline
+        "You successfully unscrambled the word! Camelot is saved. You are a \
+         hero!";
+      { state with player = { state.player with health = 120 } }
+  | false ->
+      print_endline
+        "You failed to unscramble the word. Camelot has fallen. Better luck \
+         next time.";
+      { state with player = { state.player with health = 0 } }
 
 (** [display_character_message choice] displayed a message regarding the
     character [choice] that the user selects and their special ability within
@@ -111,6 +127,11 @@ let rec game_loop state current_scenario =
   if new_state.player.health <= 0 then
     print_endline "\nGame Over! You have fallen in battle."
   else if new_state.player.health = 120 then print_endline "\n YOU WIN!"
+  else if current_scenario.description = "final_scenario" then
+    let final_state = play_word_scramble_game new_state in
+    if final_state.player.health = 120 then
+      print_endline "\nYOU WIN! Camelot is saved!"
+    else print_endline "\nYOU LOSE! Camelot has fallen."
   else
     let next_scenario =
       match current_scenario.description with
@@ -158,7 +179,7 @@ let rec game_loop state current_scenario =
          already nightfall! As you make your way out of the maze, the castle's \
          main guard sneak attacks you, beginning a battle. The guard begins to \
          over power you. How would you like to proceed?:"
-        when choice_num = 3 -> market_scenario
+        when choice_num = 3 -> final_scenario
       | _ -> current_scenario
     in
     game_loop new_state next_scenario

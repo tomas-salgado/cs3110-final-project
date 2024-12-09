@@ -416,3 +416,10 @@ let mystic_scenario =
             "Your decisions are not well informed and you cause the downfall \
              of yourself and Camelot as a whole." ));
     ]
+
+let final_scenario =
+  create_scenario "final_scenario"
+    [
+      create_choice "1. Time to end." (fun state ->
+          (state, "You have saved Camelot and the lives of millions of people."));
+    ]

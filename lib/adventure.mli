@@ -56,6 +56,7 @@ val after_fight_front_entrance_scenario : scenario
 val side_entrance_scenario : scenario
 val opposing_guards_scenario : scenario
 val after_fight_guard_in_garden_scenario : scenario
+val final_scenario : scenario
 
 val courtyard_scenario : scenario
 (** [courtyard_scenario] is a scenario involving the castle courtyard displayed

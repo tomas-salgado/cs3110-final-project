@@ -73,7 +73,6 @@ let initial_state_test expected property =
   "initial state" ^ property ^ "test" >:: fun _ ->
   let state = create_game_state (create_character 1) in
   let prop = function
-    | "days survived" -> state.days_survived
     | "food" -> state.food
     | "gold" -> state.gold
     | _ -> failwith "not an option"
