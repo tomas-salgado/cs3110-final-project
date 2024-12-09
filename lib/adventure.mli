@@ -9,19 +9,9 @@ type character = {
     within the game. This type stores information about the character's name,
     role, health, strength, and special ability. *)
 
-type location = {
-  name : string;
-  description : string;
-  danger_level : int;
-}
-(** [location] is a type representing the location of a character within the
-    game including the name of the location, location description, and danger
-    level of this location. *)
-
 type game_state = {
   player : character;
-  current_location : location;
-  days_survived : int;
+  current_location : string;
   food : int;
   gold : int;
   maze_result : Maze.maze_result option;
@@ -82,7 +72,3 @@ val market_scenario : scenario
 val mystic_scenario : scenario
 (** [mystic_scenario] is a scenario involving encountering a mystic displayed to
     the user to choose options form. *)
-
-val sneak_in_scenario : scenario
-(** [sneak_in_scenario] is a scenario involving sneaking into the castle
-    displayed to the user to choose options form. *)

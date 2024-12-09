@@ -86,11 +86,12 @@ let rec get_valid_choice max_choice =
 (** [display_game_status state] displays the [state] of the user in the game
     inclduing days survived, health, location, food, and gold. *)
 let display_game_status state =
-  print_endline ("\nDay " ^ string_of_int state.days_survived);
   print_endline ("Health: " ^ string_of_int state.player.health);
-  print_endline ("Location: " ^ state.current_location.name);
+  print_endline ("Location: " ^ state.current_location);
   print_endline ("Food: " ^ string_of_int state.food);
-  print_endline ("Gold: " ^ string_of_int state.gold)
+  print_endline ("Gold: " ^ string_of_int state.gold);
+  print_endline "";
+  print_endline ""
 
 (** [game_loop state current_scenario] loop that allows the user to interact
     with and pass through multiple scenarios, updating the [state] to account
@@ -131,7 +132,7 @@ let rec game_loop state current_scenario =
          you arrive at the back entrance to Camelot Castle, but there are \
          multiple gardeners armed with shears patrolling. There are a few \
          options for how could proceed. Would you like to:"
-        when choice_num = 1 -> mystic_scenario (* change this one *)
+        when choice_num = 1 -> wizard_fight_scenario
       | "It took you some time to escape the maze. After escaping the maze, \
          you arrive at the back entrance to Camelot Castle, but there are \
          multiple gardeners armed with shears patrolling. There are a few \
@@ -153,16 +154,14 @@ let rec game_loop state current_scenario =
          main guard sneak attacks you, beginning a battle. The guard begins to \
          over power you. How would you like to proceed?:"
         when choice_num = 2 -> opposing_guards_scenario
-      | "It took you some time to escape the maze. After escaping the maze, \
-         you arrive at the back entrance to Camelot Castle, but there are \
-         multiple gardeners armed with shears patrolling. There are a few \
-         options for how could proceed. Would you like to:"
+      | "It took you a significant amount of time to escape the maze, it is \
+         already nightfall! As you make your way out of the maze, the castle's \
+         main guard sneak attacks you, beginning a battle. The guard begins to \
+         over power you. How would you like to proceed?:"
         when choice_num = 3 -> market_scenario
       | _ -> current_scenario
     in
-    game_loop
-      { new_state with days_survived = new_state.days_survived + 1 }
-      next_scenario
+    game_loop new_state next_scenario
 
 let choose_initial_scenario maze_result =
   match maze_result with
