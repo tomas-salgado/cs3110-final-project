@@ -154,7 +154,7 @@ let initial_scenario_two =
               "As a wizard, you cast a spell on the guard, putting him to \
                sleep and winning the attack 😴" )
           else if state.player.name = "Alan the Alchemist" then
-            ( { state with current_location = "Castle Gardens" },
+            ( { state with current_location = "Camelot Castle" },
               "The guard nearly takes you out, but as an alchemist you use an \
                elixir of life to resuscitate yourself. 🧪" )
           else
