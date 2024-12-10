@@ -168,6 +168,15 @@ let adventure_tests =
        "As a monk, your calming demeanor helps you to blend in with and sneak \
         past the guards, entering the castle through the back entrance. 😌"
        message);
+    (let abigail = create_character 4 in
+     let state = create_game_state abigail in
+     let choice = List.nth garden_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As an archer, your stealth and agility allow you to sneak past the \
+        gardeners quickly and quietly, entering the castle through the backe \
+        entrance. 🏹"
+       message);
     (let alan = create_character 5 in
      let state = create_game_state alan in
      let choice = List.nth garden_scenario.choices 0 in

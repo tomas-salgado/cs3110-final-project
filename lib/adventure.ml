@@ -125,6 +125,11 @@ let garden_scenario =
               "As a monk, your calming demeanor helps you to blend in with and \
                sneak past the guards, entering the castle through the back \
                entrance. 😌" )
+          else if state.player.name = "Abigail the Archer" then
+            ( { state with current_location = "Camelot Castle" },
+              "As an archer, your stealth and agility allow you to sneak past \
+               the gardeners quickly and quietly, entering the castle through \
+               the backe entrance. 🏹" )
           else
             ( {
                 state with
