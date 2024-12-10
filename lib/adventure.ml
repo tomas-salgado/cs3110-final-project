@@ -196,7 +196,7 @@ let after_fight_front_entrance_scenario =
          secret tunnels. " (fun state ->
           ( { state with current_location = "Queen's Quarters" },
             "You go to the catacombs and begin walking around. Its dark and \
-             cold and you get lost." ));
+             you get lost." ));
     ]
 
 let side_entrance_scenario =
@@ -321,15 +321,29 @@ let after_fight_guard_in_garden_scenario =
     [
       create_choice "1. Do a dance for the princess to make her less afraid."
         (fun state ->
-          ( {
-              state with
-              player = { state.player with health = state.player.health - 25 };
-              current_location = "Camelot Market";
-              gold = state.gold + 10;
-            },
-            "You do a dance for the princess and she is impressed. She gives \
-             you 10 pieces of gold and tells you to go to the market to buy \
-             yourself something as a treat." ));
+          if state.player.name = "Walter the Wizard" then
+            ( {
+                state with
+                current_location = "Camelot Market";
+                gold = state.gold + 5;
+              },
+              "As a wizard, you use magic to do an enchanting dance for the \
+               princess. She is please and gives your 5 gold pieces to buy \
+               yourself a treat with at the market." )
+          else if state.player.name = "Max the Monk" then
+            ( {
+                state with
+                current_location = "Camelot Market";
+                gold = state.gold + 5;
+              },
+              "As a monk, you are able to do a calming dance for the princess \
+               that makes her laugh. She is please and gives your 5 gold \
+               pieces to buy yourself a treat with at the market." )
+          else
+            ( { state with current_location = "Camelot Market" },
+              "The princess is not impressed by your dance, she has her guards \
+               kick you out of the castle. You begin to walk to the town \
+               market to find some food to eat." ));
       create_choice
         "2. Go back up the wall and leave to go to the town's market."
         (fun state ->

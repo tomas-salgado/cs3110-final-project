@@ -325,9 +325,27 @@ let adventure_tests =
      let choice = List.nth after_fight_guard_in_garden_scenario.choices 0 in
      let new_state, message = choice.consequence state in
      make_string_test
-       "You do a dance for the princess and she is impressed. She gives you 10 \
-        pieces of gold and tells you to go to the market to buy yourself \
-        something as a treat."
+       "As a wizard, you use magic to do an enchanting dance for the princess. \
+        She is please and gives your 5 gold pieces to buy yourself a treat \
+        with at the market."
+       message);
+    (let max = create_character 3 in
+     let state = create_game_state max in
+     let choice = List.nth after_fight_guard_in_garden_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As a monk, you are able to do a calming dance for the princess that \
+        makes her laugh. She is please and gives your 5 gold pieces to buy \
+        yourself a treat with at the market."
+       message);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     let choice = List.nth after_fight_guard_in_garden_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "The princess is not impressed by your dance, she has her guards kick \
+        you out of the castle. You begin to walk to the town market to find \
+        some food to eat."
        message);
     (let walter = create_character 2 in
      let state = create_game_state walter in
