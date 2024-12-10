@@ -118,6 +118,18 @@ let rand_state_player_test =
   QCheck_runner.to_ounit2_test
     (QCheck2.Test.make ~count:10 choice_generator name_check)
 
+let random_index = QCheck2.Gen.(int_bound (List.length words_bank - 1))
+let random_guess n () = List.nth words_bank n
+
+let random_play n =
+  let f = random_guess n in
+  let outcome = guess_loop 1 "adventure" f in
+  Bool.equal (String.equal (random_guess n ()) "adventure") outcome
+
+let rand_wordscramble_test =
+  QCheck_runner.to_ounit2_test
+    (QCheck2.Test.make ~count:100 random_index random_play)
+
 let adventure_tests =
   [
     make_int_test 2 (List.length initial_scenario_one.choices);
@@ -380,7 +392,8 @@ let word_scramble_tests =
     (let word = "medevial" in
      let scrambled_word = scramble_word word in
      make_int_test (String.length word) (String.length scrambled_word));
-    make_boolean_test false (guess_loop 0 "");
+    make_boolean_test false (guess_loop 0 "" read_line);
+    rand_wordscramble_test;
   ]
 
 let tests = "test suite" >::: adventure_tests @ maze_tests @ word_scramble_tests
