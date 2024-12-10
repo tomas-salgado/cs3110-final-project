@@ -251,20 +251,59 @@ let side_entrance_scenario =
 
 let market_scenario =
   create_scenario
-    "You entered the town farmer's market. What would you like to do?"
+    "You enter the town farmer's market and a merchant offers you some bread \
+     for 30 gold pieces. You do not have enough gold but need something to eat \
+     to get your strength up. What would you like to do?"
     [
-      create_choice "1. Buy some food" (fun state ->
-          ( {
-              state with
-              food = state.food + 20;
-              gold = state.gold - 10;
-              player = { state.player with health = state.player.health + 20 };
-              current_location = "Camelot Fortune Teller's Shop";
-            },
-            "You bought some bread and vegetables for 10 pieces of gold. You \
-             eat the food and gain 20 health points! 🍞" ));
+      create_choice
+        "1. Bargain with the merchant and see if you can give him something in \
+         addition to gold pieces for some food." (fun state ->
+          if state.player.name = "Walter the Wizard" then
+            ( {
+                state with
+                food = state.food + 20;
+                player = { state.player with health = state.player.health + 20 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "As a wizard, you cast a spell on the merchant, and he gives you \
+               the bread for free. Well done, you eat and gain 20 health \
+               points! 🍞" )
+          else if state.player.name = "Alan the Alchemist" then
+            ( {
+                state with
+                food = state.food + 20;
+                gold = state.gold - 30;
+                player = { state.player with health = state.player.health + 20 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "As an alchemist, you give the merchant an elixir of life plus \
+               your 30 gold pieces for the bread. Well done, you eat and gain \
+               20 health points! 🍞" )
+          else if state.player.name = "Abigail the Archer" then
+            ( {
+                state with
+                food = state.food + 20;
+                gold = state.gold - 30;
+                player = { state.player with health = state.player.health + 20 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "As an archer, you offer the merchant bow and arrow lessons so \
+               that he can protect himself from thieves along with your 30 \
+               gold pieces. Well done, you eat and gain 20 health points! 🍞" )
+          else
+            ( {
+                state with
+                food = state.food + 10;
+                gold = state.gold - 15;
+                player = { state.player with health = state.player.health + 10 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "You do not have anything to offer the merchant. You take half \
+               the bread for 15 gold pieces. Well done, you eat and gain 10 \
+               health points! 🍞" ));
       create_choice "2. Go somewhere else" (fun state ->
-          (state, "You leave the market to go somewhere else."));
+          ( { state with current_location = "Camelot Fortune Teller's Shop" },
+            "You leave the market to go somewhere else." ));
     ]
 
 let after_fight_guard_in_garden_scenario =

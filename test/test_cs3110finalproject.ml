@@ -271,13 +271,40 @@ let adventure_tests =
        "The queen's guards beat you up really badly. You wake up in the \
         castle's jail. You lose 30 health points!!! 🤕"
        message);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "You do not have anything to offer the merchant. You take half the \
+        bread for 15 gold pieces. Well done, you eat and gain 10 health \
+        points! 🍞"
+       message);
+    (let walter = create_character 2 in
+     let state = create_game_state walter in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As a wizard, you cast a spell on the merchant, and he gives you the \
+        bread for free. Well done, you eat and gain 20 health points! 🍞"
+       message);
+    (let alan = create_character 5 in
+     let state = create_game_state alan in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As an alchemist, you give the merchant an elixir of life plus your 30 \
+        gold pieces for the bread. Well done, you eat and gain 20 health \
+        points! 🍞"
+       message);
     (let abigail = create_character 4 in
      let state = create_game_state abigail in
      let choice = List.nth market_scenario.choices 0 in
      let new_state, message = choice.consequence state in
      make_string_test
-       "You bought some bread and vegetables for 10 pieces of gold. You eat \
-        the food and gain 20 health points! 🍞"
+       "As an archer, you offer the merchant bow and arrow lessons so that he \
+        can protect himself from thieves along with your 30 gold pieces. Well \
+        done, you eat and gain 20 health points! 🍞"
        message);
     (let abigail = create_character 4 in
      let state = create_game_state abigail in
