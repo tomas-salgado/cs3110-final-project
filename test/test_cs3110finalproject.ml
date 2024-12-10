@@ -180,6 +180,15 @@ let adventure_tests =
        "As a monk, your calming demeanor helps you to blend in with and sneak \
         past the guards, entering the castle through the back entrance. 😌"
        message);
+    (let abigail = create_character 4 in
+     let state = create_game_state abigail in
+     let choice = List.nth garden_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As an archer, your stealth and agility allow you to sneak past the \
+        gardeners quickly and quietly, entering the castle through the backe \
+        entrance. 🏹"
+       message);
     (let alan = create_character 5 in
      let state = create_game_state alan in
      let choice = List.nth garden_scenario.choices 0 in
@@ -283,13 +292,40 @@ let adventure_tests =
        "The queen's guards beat you up really badly. You wake up in the \
         castle's jail. You lose 30 health points!!! 🤕"
        message);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "You do not have anything to offer the merchant. You take half the \
+        bread for 15 gold pieces. Well done, you eat and gain 10 health \
+        points! 🍞"
+       message);
+    (let walter = create_character 2 in
+     let state = create_game_state walter in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As a wizard, you cast a spell on the merchant, and he gives you the \
+        bread for free. Well done, you eat and gain 20 health points! 🍞"
+       message);
+    (let alan = create_character 5 in
+     let state = create_game_state alan in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As an alchemist, you give the merchant an elixir of life plus your 30 \
+        gold pieces for the bread. Well done, you eat and gain 20 health \
+        points! 🍞"
+       message);
     (let abigail = create_character 4 in
      let state = create_game_state abigail in
      let choice = List.nth market_scenario.choices 0 in
      let new_state, message = choice.consequence state in
      make_string_test
-       "You bought some bread and vegetables for 10 pieces of gold. You eat \
-        the food and gain 20 health points! 🍞"
+       "As an archer, you offer the merchant bow and arrow lessons so that he \
+        can protect himself from thieves along with your 30 gold pieces. Well \
+        done, you eat and gain 20 health points! 🍞"
        message);
     (let abigail = create_character 4 in
      let state = create_game_state abigail in
@@ -301,9 +337,27 @@ let adventure_tests =
      let choice = List.nth after_fight_guard_in_garden_scenario.choices 0 in
      let new_state, message = choice.consequence state in
      make_string_test
-       "You do a dance for the princess and she is impressed. She gives you 10 \
-        pieces of gold and tells you to go to the market to buy yourself \
-        something as a treat."
+       "As a wizard, you use magic to do an enchanting dance for the princess. \
+        She is please and gives your 5 gold pieces to buy yourself a treat \
+        with at the market."
+       message);
+    (let max = create_character 3 in
+     let state = create_game_state max in
+     let choice = List.nth after_fight_guard_in_garden_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As a monk, you are able to do a calming dance for the princess that \
+        makes her laugh. She is please and gives your 5 gold pieces to buy \
+        yourself a treat with at the market."
+       message);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     let choice = List.nth after_fight_guard_in_garden_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "The princess is not impressed by your dance, she has her guards kick \
+        you out of the castle. You begin to walk to the town market to find \
+        some food to eat."
        message);
     (let walter = create_character 2 in
      let state = create_game_state walter in
@@ -320,7 +374,17 @@ let adventure_tests =
      let choice = List.nth opposing_guards_scenario.choices 1 in
      let new_state, message = choice.consequence state in
      make_string_test
-       "You walk with the group of opposing knights towards the town market."
+       "You are not able to blend in very well with this crowd of Knights \
+        since you look out of place. They notice you are an intruder and you \
+        have to run away. You lose 10 health points."
+       message);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     let choice = List.nth opposing_guards_scenario.choices 1 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As a knight you are easily able to blend in with this crowd. You walk \
+        with them as they go to the town farmer's market."
        message);
     (let abigail = create_character 3 in
      let state = create_game_state abigail in

@@ -125,6 +125,11 @@ let garden_scenario =
               "As a monk, your calming demeanor helps you to blend in with and \
                sneak past the guards, entering the castle through the back \
                entrance. 😌" )
+          else if state.player.name = "Abigail the Archer" then
+            ( { state with current_location = "Camelot Castle" },
+              "As an archer, your stealth and agility allow you to sneak past \
+               the gardeners quickly and quietly, entering the castle through \
+               the backe entrance. 🏹" )
           else
             ( {
                 state with
@@ -191,7 +196,7 @@ let after_fight_front_entrance_scenario =
          secret tunnels. " (fun state ->
           ( { state with current_location = "Queen's Quarters" },
             "You go to the catacombs and begin walking around. Its dark and \
-             cold and you get lost." ));
+             you get lost." ));
     ]
 
 let side_entrance_scenario =
@@ -251,20 +256,59 @@ let side_entrance_scenario =
 
 let market_scenario =
   create_scenario
-    "You entered the town farmer's market. What would you like to do?"
+    "You enter the town farmer's market and a merchant offers you some bread \
+     for 30 gold pieces. You do not have enough gold but need something to eat \
+     to get your strength up. What would you like to do?"
     [
-      create_choice "1. Buy some food" (fun state ->
-          ( {
-              state with
-              food = state.food + 20;
-              gold = state.gold - 10;
-              player = { state.player with health = state.player.health + 20 };
-              current_location = "Camelot Fortune Teller's Shop";
-            },
-            "You bought some bread and vegetables for 10 pieces of gold. You \
-             eat the food and gain 20 health points! 🍞" ));
+      create_choice
+        "1. Bargain with the merchant and see if you can give him something in \
+         addition to gold pieces for some food." (fun state ->
+          if state.player.name = "Walter the Wizard" then
+            ( {
+                state with
+                food = state.food + 20;
+                player = { state.player with health = state.player.health + 20 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "As a wizard, you cast a spell on the merchant, and he gives you \
+               the bread for free. Well done, you eat and gain 20 health \
+               points! 🍞" )
+          else if state.player.name = "Alan the Alchemist" then
+            ( {
+                state with
+                food = state.food + 20;
+                gold = state.gold - 30;
+                player = { state.player with health = state.player.health + 20 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "As an alchemist, you give the merchant an elixir of life plus \
+               your 30 gold pieces for the bread. Well done, you eat and gain \
+               20 health points! 🍞" )
+          else if state.player.name = "Abigail the Archer" then
+            ( {
+                state with
+                food = state.food + 20;
+                gold = state.gold - 30;
+                player = { state.player with health = state.player.health + 20 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "As an archer, you offer the merchant bow and arrow lessons so \
+               that he can protect himself from thieves along with your 30 \
+               gold pieces. Well done, you eat and gain 20 health points! 🍞" )
+          else
+            ( {
+                state with
+                food = state.food + 10;
+                gold = state.gold - 15;
+                player = { state.player with health = state.player.health + 10 };
+                current_location = "Camelot Fortune Teller's Shop";
+              },
+              "You do not have anything to offer the merchant. You take half \
+               the bread for 15 gold pieces. Well done, you eat and gain 10 \
+               health points! 🍞" ));
       create_choice "2. Go somewhere else" (fun state ->
-          (state, "You leave the market to go somewhere else."));
+          ( { state with current_location = "Camelot Fortune Teller's Shop" },
+            "You leave the market to go somewhere else." ));
     ]
 
 let after_fight_guard_in_garden_scenario =
@@ -277,15 +321,29 @@ let after_fight_guard_in_garden_scenario =
     [
       create_choice "1. Do a dance for the princess to make her less afraid."
         (fun state ->
-          ( {
-              state with
-              player = { state.player with health = state.player.health - 25 };
-              current_location = "Camelot Market";
-              gold = state.gold + 10;
-            },
-            "You do a dance for the princess and she is impressed. She gives \
-             you 10 pieces of gold and tells you to go to the market to buy \
-             yourself something as a treat." ));
+          if state.player.name = "Walter the Wizard" then
+            ( {
+                state with
+                current_location = "Camelot Market";
+                gold = state.gold + 5;
+              },
+              "As a wizard, you use magic to do an enchanting dance for the \
+               princess. She is please and gives your 5 gold pieces to buy \
+               yourself a treat with at the market." )
+          else if state.player.name = "Max the Monk" then
+            ( {
+                state with
+                current_location = "Camelot Market";
+                gold = state.gold + 5;
+              },
+              "As a monk, you are able to do a calming dance for the princess \
+               that makes her laugh. She is please and gives your 5 gold \
+               pieces to buy yourself a treat with at the market." )
+          else
+            ( { state with current_location = "Camelot Market" },
+              "The princess is not impressed by your dance, she has her guards \
+               kick you out of the castle. You begin to walk to the town \
+               market to find some food to eat." ));
       create_choice
         "2. Go back up the wall and leave to go to the town's market."
         (fun state ->
@@ -309,9 +367,19 @@ let opposing_guards_scenario =
       create_choice
         "2. Blend in with the crowd and walk with them as they go towards the \
          town center. " (fun state ->
-          ( { state with current_location = "Camelot Market" },
-            "You walk with the group of opposing knights towards the town \
-             market." ));
+          if state.player.name = "Kate the Knight" then
+            ( { state with current_location = "Camelot Market" },
+              "As a knight you are easily able to blend in with this crowd. \
+               You walk with them as they go to the town farmer's market." )
+          else
+            ( {
+                state with
+                current_location = "Camelot Market";
+                player = { state.player with health = state.player.health + 20 };
+              },
+              "You are not able to blend in very well with this crowd of \
+               Knights since you look out of place. They notice you are an \
+               intruder and you have to run away. You lose 10 health points." ));
     ]
 
 let mystic_scenario =
