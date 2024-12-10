@@ -407,6 +407,7 @@ let word_scramble_tests =
     (let word = "medevial" in
      let scrambled_word = scramble_word word in
      make_int_test (String.length word) (String.length scrambled_word));
+    make_boolean_test false (guess_loop 0 "");
   ]
 
 let tests = "test suite" >::: adventure_tests @ maze_tests @ word_scramble_tests
