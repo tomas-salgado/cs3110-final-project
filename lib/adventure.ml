@@ -367,9 +367,19 @@ let opposing_guards_scenario =
       create_choice
         "2. Blend in with the crowd and walk with them as they go towards the \
          town center. " (fun state ->
-          ( { state with current_location = "Camelot Market" },
-            "You walk with the group of opposing knights towards the town \
-             market." ));
+          if state.player.name = "Kate the Knight" then
+            ( { state with current_location = "Camelot Market" },
+              "As a knight you are easily able to blend in with this crowd. \
+               You walk with them as they go to the town farmer's market." )
+          else
+            ( {
+                state with
+                current_location = "Camelot Market";
+                player = { state.player with health = state.player.health + 20 };
+              },
+              "You are not able to blend in very well with this crowd of \
+               Knights since you look out of place. They notice you are an \
+               intruder and you have to run away. You lose 10 health points." ));
     ]
 
 let mystic_scenario =

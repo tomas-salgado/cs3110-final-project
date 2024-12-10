@@ -362,7 +362,17 @@ let adventure_tests =
      let choice = List.nth opposing_guards_scenario.choices 1 in
      let new_state, message = choice.consequence state in
      make_string_test
-       "You walk with the group of opposing knights towards the town market."
+       "You are not able to blend in very well with this crowd of Knights \
+        since you look out of place. They notice you are an intruder and you \
+        have to run away. You lose 10 health points."
+       message);
+    (let kate = create_character 1 in
+     let state = create_game_state kate in
+     let choice = List.nth opposing_guards_scenario.choices 1 in
+     let new_state, message = choice.consequence state in
+     make_string_test
+       "As a knight you are easily able to blend in with this crowd. You walk \
+        with them as they go to the town farmer's market."
        message);
     (let abigail = create_character 3 in
      let state = create_game_state abigail in
