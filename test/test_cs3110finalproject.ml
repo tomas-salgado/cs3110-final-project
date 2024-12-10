@@ -3,94 +3,155 @@ open Cs3110finalproject.Adventure
 open Cs3110finalproject.Maze
 open Cs3110finalproject.Wordscramble
 
+(** [int_printer i] is a printer for integer values. Given integer value [i], it
+    returns this value as a string.*)
 let int_printer (i : int) : string = string_of_int i
 
+(** [make_int_test expected_int output_int] is an OUnit2.test that takes an
+    [expected_int] as the integer value it will check equal against the integer
+    [output_int]. *)
 let make_int_test expected_int output_int =
   "test" >:: fun _ -> assert_equal expected_int output_int ~printer:int_printer
 
+(** [pair_printer p] is a printer for a pair of integer values. Given an integer
+    pair [p], it returns this value as a string. *)
 let pair_printer (p : int * int) : string =
   "(" ^ string_of_int (fst p) ^ ", " ^ string_of_int (snd p) ^ ")"
 
+(** [pair_comparator p1 p2] is a comparator for a pair of integer values. Given
+    integer pairs [p1] and [p2] returns true if both the first and second values
+    of the pairs are equal and false otherwise. *)
 let pair_comparator (p1 : int * int) (p2 : int * int) : bool =
   fst p1 = fst p2 && snd p1 = snd p2
 
+(** [make_pair_test expected output] is an OUnit2.test that takes [expected] as
+    the integer pair value it will check equal against the integer pair
+    [output]. *)
 let make_pair_test (expected : int * int) (output : int * int) =
   "test" >:: fun _ ->
   assert_equal expected output ~printer:pair_printer ~cmp:pair_comparator
 
+(** [maze_result_printer r] is a printer for a pair of maze_result value. Given
+    maze_result [r], it returns this value as a string. *)
 let maze_result_printer (r : maze_result) : string =
   match r with
   | Success steps -> "Success " ^ string_of_int steps
   | Failure -> "Failure"
 
+(** [maze_result_comparator r1 r2] is a comparator for maze_result values. Given
+    maze_result values [r1] and [r2] returns true if both are Success with the
+    same integer number of steps or true if both are failure, and false
+    otherwise. *)
 let maze_result_comparator (r1 : maze_result) (r2 : maze_result) : bool =
   match (r1, r2) with
   | Success steps1, Success steps2 -> steps1 = steps2
   | Failure, Failure -> true
   | _ -> false
 
+(** [make_maze_result_test expected output] is an OUnit2.test that takes
+    [expected] as the maze_result value it will check equal against the
+    maze_result value [output]. *)
 let make_maze_result_test (expected : maze_result) (output : maze_result) =
   "test" >:: fun _ ->
   assert_equal expected output ~printer:maze_result_printer
     ~cmp:maze_result_comparator
 
+(** [bool_printer b_val] is a printer for boolean values. Given boolean value
+    [b_val] it prints "True" if [b_val] is true or "False" if [b_val] is false. *)
 let bool_printer b_val = if b_val then "true" else "false"
 
+(** [make_correct_spelling_test expected_bool actual_bool] is an OUnit2.test
+    that takes an [expected_bool] as the boolean value it will check equal
+    against the boolean [actual_bool]. *)
 let make_boolean_test expected_bool actual_bool =
   "test" >:: fun _ ->
   assert_equal expected_bool actual_bool ~cmp:Bool.equal ~printer:bool_printer
 
+(** [array_comparator arr1 arr2] is a comparator for array values. Given array
+    values [arr1] and [arr2] returns true if these arrays and equal and false
+    otherwise. *)
 let array_comparator arr1 arr2 =
   let rows_equal row1 row2 =
     Array.length row1 = Array.length row2 && Array.for_all2 ( = ) row1 row2
   in
   Array.length arr1 = Array.length arr2 && Array.for_all2 rows_equal arr1 arr2
 
+(** [array_printer arr] is a printer for array values. Given array value [arr]
+    it prints the string representation of [arr]. *)
 let array_printer arr =
   let row_to_string row =
     Array.fold_left (fun acc elem -> acc ^ elem ^ " ") "" row |> String.trim
   in
   Array.fold_left (fun acc row -> acc ^ row_to_string row ^ "\n") "" arr
 
+(** [print_2d_array arr] is the string representation of the 2D array [arr]. *)
 let print_2d_array arr = array_printer arr |> print_string
 
+(** [make_2d_array_test arr1 arr2] is an OUnit2.test that takes a 2D array value
+    [arr1] and checks equal against the 2D array value [arr2]. *)
 let make_2d_array_test arr1 arr2 =
   "test" >:: fun _ ->
   assert_equal arr1 arr2 ~cmp:array_comparator ~printer:array_printer
 
+(** [int_option_cmp opt1 opt2] is a comparator for integer option values. Given
+    int option values [opt2] and [opt2] returns true if these options are the
+    same and false otherwise. *)
 let int_option_cmp opt1 opt2 =
   match (opt1, opt2) with
   | Some x, Some y -> x = y
   | None, None -> true
   | _, _ -> false
 
+(** [int_option_printer x] is a printer for integer option values. Given integer
+    option value [x] it prints the string representation of [x]. *)
 let int_option_printer = function
   | Some x -> "Some " ^ string_of_int x
   | None -> "None"
 
+(** [make_option_test option1 option2] is an OUnit2.test that takes an int
+    option value [option1] and checks equal against the int option value
+    [option2]. *)
 let make_option_test option1 option2 =
   "test" >:: fun _ ->
   assert_equal option1 option2 ~cmp:int_option_cmp ~printer:int_option_printer
 
+(** [string_comparator s1 s2] is a comparator for string values. Given the
+    strings [s1] and [s2] returns true if these strings are the same and false
+    otherwise. *)
 let string_comparator (s1 : string) (s2 : string) : bool = String.equal s1 s2
+
+(** [string_printer s] is a printer for string values. Given string [s] it
+    prints the string. *)
 let string_printer (s : string) : string = "\"" ^ s ^ "\""
 
+(** [make_string_test str1 str2] is an OUnit2.test that takes a string value
+    [str1] and checks equal against the string value [str2]. *)
 let make_string_test str1 str2 =
   "test" >:: fun _ ->
   assert_equal str1 str2 ~cmp:string_comparator ~printer:string_printer
 
+(** [choice_generator] is a random integer 1-5. *)
 let choice_generator = QCheck2.Gen.(int_bound 5)
+
+(** [choice_list_generator] is a list of random integers. *)
 let choice_list_generator = QCheck2.Gen.(list_size (int_bound 10) (int_bound 5))
 
+(** [state_player_test chr expected] creates tests based on the input character
+    [chr] and expected result [expected] to test the player's state in the
+    choose your adventure game. *)
 let state_player_test chr expected =
   "property test for character" >:: fun _ ->
   assert_equal expected (create_game_state (create_character chr)).player.name
 
+(** [invalid_character_test] creates a test for when the option to user selects
+    for character is invalid. *)
 let invalid_character_test =
   "invalid character test" >:: fun _ ->
   assert_raises (Failure "Invalid character choice") (fun () ->
       create_character 6)
 
+(** [initial_state_test expected property] creates OUnit2 tests to check that
+    the initial state's gold and food is initialized to the correct amounts. *)
 let initial_state_test expected property =
   "initial state" ^ property ^ "test" >:: fun _ ->
   let state = create_game_state (create_character 1) in
@@ -101,6 +162,8 @@ let initial_state_test expected property =
   in
   assert_equal expected (prop property)
 
+(** [name_check n] creates OUnit2 tests to check that the correct character is
+    chosen when the user inputs the correct corresponding number. *)
 let name_check n =
   let name =
     match n with
@@ -113,7 +176,9 @@ let name_check n =
   in
   String.equal name (create_game_state (create_character n)).player.name
 
-(**checks that character name is as expected when chosen*)
+(** [rand_state_player_test] uses QCheck to create random tests for testing
+    different initial properties of game state and character choice with OUnit2
+    tests. *)
 let rand_state_player_test =
   QCheck_runner.to_ounit2_test
     (QCheck2.Test.make ~count:10 choice_generator name_check)

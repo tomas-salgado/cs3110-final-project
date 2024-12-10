@@ -2,10 +2,13 @@ open Cs3110finalproject.Adventure
 open Cs3110finalproject.Maze
 open Cs3110finalproject.Wordscramble
 
+(** [play_intro_maze state] prints and allows the user to play the initial maze
+    game at the start of the choose your own adventure, updating the [state]
+    variable with the resutling number of steps it takes the user to complete
+    the maze. *)
 let play_intro_maze state =
   print_endline
-    "\n\
-     You awake in the Camelot Castle gardens at the very corner of a maze. You \
+    "You awake in the Camelot Castle gardens at the very corner of a maze. You \
      must navigate and escape the maze in order to escape and save Camelot \
      from attack.";
   let maze_result = play_maze () in
@@ -24,6 +27,10 @@ let play_intro_maze state =
         maze_result = Some Failure;
       }
 
+(** [play_word_scramble_game state] prints and allows the user to play the
+    ending word scramble game at the start of the choose your own adventure,
+    updating the [state] variable to cause the user to win or lose the game
+    overall. *)
 let play_word_scramble_game state =
   print_endline
     "You have one final challenge: a magical word scramble that determines the \
@@ -158,7 +165,6 @@ let rec game_loop state current_scenario =
   else
     let next_scenario =
       match current_scenario.description with
-      (* First Option *)
       | "You escape the maze quickly and are able to make it to the gates of \
          Camelot Castle. There are guards everywhere. There are a few options \
          for how can proceed. Would you like to:"
@@ -175,7 +181,6 @@ let rec game_loop state current_scenario =
          multiple gardeners armed with shears patrolling. There are a few \
          options for how could proceed. Would you like to:"
         when choice_num = 1 || choice_num = 2 -> side_entrance_scenario
-      (* Second Option *)
       | "It took you a significant amount of time to escape the maze, it is \
          already nightfall! As you make your way out of the maze, the castle's \
          main guard sneak attacks you, beginning a battle. The guard begins to \
@@ -197,7 +202,6 @@ let rec game_loop state current_scenario =
          you encounter the castle's princess who is starteled and starts to \
          yell for help. What would you like to do next?"
         when choice_num = 1 || choice_num = 2 -> market_scenario
-      (* Third Option *)
       | "You entered the town farmer's market. What would you like to do?"
         when choice_num = 1 -> mystic_scenario
       | "You entered the town farmer's market. What would you like to do?"
@@ -218,6 +222,10 @@ let rec game_loop state current_scenario =
     in
     game_loop new_state next_scenario
 
+(** [choose_initial_scenario maze_result] chooses which initial scenario will be
+    displayed to the player of the choose your own adventure game based on their
+    score in their score on the initial maze game which is stored in
+    [maze_result]. *)
 let choose_initial_scenario maze_result =
   match maze_result with
   | Some (Success steps) ->
