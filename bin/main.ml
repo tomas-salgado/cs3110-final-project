@@ -2,6 +2,60 @@ open Cs3110finalproject.Adventure
 open Cs3110finalproject.Maze
 open Cs3110finalproject.Wordscramble
 
+(** [guess_loop attempts_left original_word f] is a loop that continuosly prints
+    results to screen as the user attempts to guess the scrambled word. The user
+    has [attempts_left] attempts to guess the scrambled word. The word they must
+    guess is [original_word]. *)
+let rec guess_loop attempts_left original_word f =
+  if attempts_left = 0 then (
+    Printf.printf "You've run out of guesses! The word was: %s.\n" original_word;
+    false)
+  else (
+    Printf.printf "Enter your guess (%d attempt(s) left): " attempts_left;
+    let guess = f () in
+    if String.lowercase_ascii guess = original_word then (
+      Printf.printf "Congratulations! You unscrambled the word!\n";
+      true)
+    else (
+      Printf.printf "Incorrect guess.\n";
+      guess_loop (attempts_left - 1) original_word f))
+
+(** [play_word_scramble ()] initiates the word scramble game for the user at the
+    very end of the choose your own adventure game. *)
+let play_word_scramble () =
+  let original_word = pick_random_word () in
+  let scrambled_word = scramble_word original_word in
+  Printf.printf "Unscramble this word: %s\n" scrambled_word;
+  guess_loop 3 original_word read_line
+
+(** [game_loop maze player_position steps] creates a loop that continuously
+    prints and updates the maze [maze] by changing the player's position
+    [player_position], recording the amount of steps [steps] that it takes the
+    player to successfully complete the maze. *)
+let rec game_loop maze player_position steps =
+  print_newline ();
+  print_maze maze player_position;
+  if is_exit_reached maze player_position then Success steps
+  else (
+    print_endline "Enter a direction (W: Up, A: Left, S: Down, D: Right): ";
+    let direction = read_line () in
+    match direction with
+    | "w" | "a" | "s" | "d" ->
+        let new_position =
+          move_player maze player_position (String.get direction 0)
+        in
+        game_loop maze new_position (steps + 1)
+    | _ ->
+        print_endline "Invalid input! Please enter w, a, s, or d.";
+        game_loop maze player_position steps)
+
+(** [play_maze ()] intializes a maze and game loop for the user at the start of
+    the choose your own adventure. Casues the player to spawn at the very upper
+    left corner and begin from there. *)
+let play_maze () =
+  let maze = initialize_maze () in
+  game_loop maze (0, 0) 0
+
 (** [play_intro_maze state] prints and allows the user to play the initial maze
     game at the start of the choose your own adventure, updating the [state]
     variable with the resutling number of steps it takes the user to complete

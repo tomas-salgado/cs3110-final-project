@@ -28,17 +28,6 @@ val move_player : string array array -> int * int -> char -> int * int
     position [player_position] to a new position within the overall maze,
     [maze]. *)
 
-val game_loop : string array array -> int * int -> int -> maze_result
-(** [game_loop maze player_position steps] creates a loop that continuously
-    prints and updates the maze [maze] by changing the player's position
-    [player_position], recording the amount of steps [steps] that it takes the
-    player to successfully complete the maze. *)
-
-val play_maze : unit -> maze_result
-(** [play_maze ()] intializes a maze and game loop for the user at the start of
-    the choose your own adventure. Casues the player to spawn at the very upper
-    left corner and begin from there. *)
-
 val get_final_score : maze_result -> int option
 (** [get_final_score result] returns an option representing the final score of
     the [result] or final score of the user within the maze game. *)

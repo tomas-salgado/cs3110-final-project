@@ -183,18 +183,6 @@ let rand_state_player_test =
   QCheck_runner.to_ounit2_test
     (QCheck2.Test.make ~count:10 choice_generator name_check)
 
-let random_index = QCheck2.Gen.(int_bound (List.length words_bank - 1))
-let random_guess n () = List.nth words_bank n
-
-let random_play n =
-  let f = random_guess n in
-  let outcome = guess_loop 1 "adventure" f in
-  Bool.equal (String.equal (random_guess n ()) "adventure") outcome
-
-let rand_wordscramble_test =
-  QCheck_runner.to_ounit2_test
-    (QCheck2.Test.make ~count:100 random_index random_play)
-
 let adventure_tests =
   [
     make_int_test 2 (List.length initial_scenario_one.choices);
@@ -374,12 +362,22 @@ let adventure_tests =
        "As a wizard, you cast a spell on the merchant, and he gives you the \
         bread for free. Well done, you eat and gain 20 health points! 🍞"
        message);
+    (let walter = create_character 2 in
+     let state = create_game_state walter in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_int_test 120 new_state.food);
+    (let alan = create_character 5 in
+     let state = create_game_state alan in
+     let choice = List.nth market_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_int_test 0 new_state.gold);
     (let alan = create_character 5 in
      let state = create_game_state alan in
      let choice = List.nth market_scenario.choices 0 in
      let new_state, message = choice.consequence state in
      make_string_test
-       "As an alchemist, you give the merchant an elixir of life plus your 30 \
+       "As an alchemist, you give the merchant an elixir of life plus your 20 \
         gold pieces for the bread. Well done, you eat and gain 20 health \
         points! 🍞"
        message);
@@ -389,7 +387,7 @@ let adventure_tests =
      let new_state, message = choice.consequence state in
      make_string_test
        "As an archer, you offer the merchant bow and arrow lessons so that he \
-        can protect himself from thieves along with your 30 gold pieces. Well \
+        can protect himself from thieves along with your 20 gold pieces. Well \
         done, you eat and gain 20 health points! 🍞"
        message);
     (let abigail = create_character 4 in
@@ -466,6 +464,11 @@ let adventure_tests =
      let choice = List.nth jail_scenario.choices 0 in
      let new_state, message = choice.consequence state in
      make_string_test "" message);
+    (let abigail = create_character 3 in
+     let state = create_game_state abigail in
+     let choice = List.nth jail_scenario.choices 0 in
+     let new_state, message = choice.consequence state in
+     make_string_test "" message);
   ]
 
 let maze_tests =
@@ -500,9 +503,6 @@ let maze_tests =
      make_pair_test (2, 2) (move_player maze (2, 2) 'w'));
     (let maze = initialize_maze () in
      make_boolean_test true (is_exit_reached maze (9, 9)));
-    (let maze = initialize_maze () in
-     let result = game_loop maze (9, 9) 0 in
-     make_maze_result_test (Success 0) result);
     make_option_test (get_final_score (Success 0)) (Some 0);
     make_option_test (get_final_score Failure) None;
   ]
@@ -521,8 +521,6 @@ let word_scramble_tests =
     (let word = "medevial" in
      let scrambled_word = scramble_word word in
      make_int_test (String.length word) (String.length scrambled_word));
-    make_boolean_test false (guess_loop 0 "" read_line);
-    rand_wordscramble_test;
   ]
 
 let tests = "test suite" >::: adventure_tests @ maze_tests @ word_scramble_tests

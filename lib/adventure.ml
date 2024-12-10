@@ -277,23 +277,23 @@ let market_scenario =
             ( {
                 state with
                 food = state.food + 20;
-                gold = state.gold - 30;
+                gold = state.gold - 20;
                 player = { state.player with health = state.player.health + 20 };
                 current_location = "Camelot Fortune Teller's Shop";
               },
               "As an alchemist, you give the merchant an elixir of life plus \
-               your 30 gold pieces for the bread. Well done, you eat and gain \
+               your 20 gold pieces for the bread. Well done, you eat and gain \
                20 health points! 🍞" )
           else if state.player.name = "Abigail the Archer" then
             ( {
                 state with
                 food = state.food + 20;
-                gold = state.gold - 30;
+                gold = state.gold - 20;
                 player = { state.player with health = state.player.health + 20 };
                 current_location = "Camelot Fortune Teller's Shop";
               },
               "As an archer, you offer the merchant bow and arrow lessons so \
-               that he can protect himself from thieves along with your 30 \
+               that he can protect himself from thieves along with your 20 \
                gold pieces. Well done, you eat and gain 20 health points! 🍞" )
           else
             ( {
