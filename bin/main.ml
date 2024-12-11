@@ -256,9 +256,13 @@ let rec game_loop state current_scenario =
          you encounter the castle's princess who is starteled and starts to \
          yell for help. What would you like to do next?"
         when choice_num = 1 || choice_num = 2 -> market_scenario
-      | "You entered the town farmer's market. What would you like to do?"
+      | "You enter the town farmer's market and a merchant offers you some \
+         bread for 30 gold pieces. You do not have enough gold but need \
+         something to eat to get your strength up. What would you like to do?"
         when choice_num = 1 -> mystic_scenario
-      | "You entered the town farmer's market. What would you like to do?"
+      | "You enter the town farmer's market and a merchant offers you some \
+         bread for 30 gold pieces. You do not have enough gold but need \
+         something to eat to get your strength up. What would you like to do?"
         when choice_num = 2 -> mystic_scenario
       | "You begin wandering around the castle and opening random doors. You \
          accidentally enter the room where the King's wife, the queen, is \

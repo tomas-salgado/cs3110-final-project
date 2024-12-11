@@ -18,15 +18,19 @@ title: "Camelot Adventures"
 # OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
 git-repo: "https://github.com/tomas-salgado/cs3110-final-project"
 # Replace the URL with your own demo video.
-demo-video-url: "https://youtu.be/Q6gx6H8LLqA"
+demo-video-url: "https://youtu.be/DpmpNZ6XR8I"
 # Write a short, attention-grabbing description of your project.
 desc: >
   Our project is an interactive choose your own adventure game. It allows the 
   user to choose the character they would like to play the game as, and goes
   through a series of scenarios in which the user must choose what to do when 
   faced with different tasks including battling knights, casting spells, and 
-  making decisions that affect all of Camelot.
+  making decisions that affect Camelot.
 
-  As the user continues through different scenarios of the game and chooses for 
-  themself how to proceed, the user can either win the game by saving Camelot 
-  or lose the game once their health becomes 0 points.
+  The game starts with a maze navigation game, and the user's score in that game 
+  is used to determine which scenario the player starts with. As the user 
+  continues through different scenarios of the game and chooses for themself how 
+  to proceed, the user can either win the game by solving the final word 
+  unscramble game correctly, saving Camelot, or lose the game by solving this 
+  game incorrectly. Additionally, once a player's health score is 0 they lose 
+  the game. 
