@@ -1,3 +1,289 @@
+commit c047e1a90e907ea185257eaa9c3515c5d8fa1a2a
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 19:19:05 2024 -0500
+
+    Updating YAML file and main.ml
+
+commit 84d99d2cc2f5cc4069ea8be00a15593e6dfb8ad2
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 18:58:03 2024 -0500
+
+    Updating AUTHORS.md file
+
+commit cfda05888923f7809e8280cfcbe6fda9ca8b1bc4
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 18:51:48 2024 -0500
+
+    Making fixes to code
+    - Moved functions within maze.ml and wordscramble.ml that were printing functions to bin/main.ml
+    - Edited corresponding .mli files
+    - Removed corresponding tests for testing suite
+    - Added test cases for when gold and health change for the user state
+
+commit b049e6e5253a7e638992e011e30ae158cd267b5c
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 16:55:13 2024 -0500
+
+    Updating wordscramble.mli documentation
+
+commit b8339d35d45e9567d3a3668f7970368a2c0e33e4
+Merge: 1cda78e e72f0fe
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 16:50:56 2024 -0500
+
+    Merge branch 'main' of https://github.com/tomas-salgado/cs3110-final-project
+
+commit 1cda78e2eb34d6a1469e5d2c44a8eeb798d45b53
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 16:48:11 2024 -0500
+
+    Adding specification to everything
+    - adding specification to all .mli files
+    - adding specifications to all functions used in testing suite
+    - adding specifications to all functions in main.ml
+
+commit e72f0fef3b3446afd717311ad622c46afd13944f
+Merge: e8ae3c6 a778be2
+Author: Vanessa Morales <vmm62@cornell.edu>
+Date:   Tue Dec 10 16:35:16 2024 -0500
+
+    Merge remote-tracking branch 'refs/remotes/origin/main'
+
+commit e8ae3c6c25fefd7601a99d262e26812dfbd57511
+Author: Vanessa Morales <vmm62@cornell.edu>
+Date:   Tue Dec 10 16:28:19 2024 -0500
+
+    Implement random wordscramble test
+    
+    - modify guess_loop input
+    - write QCheck test for guess_loop
+
+commit a778be29c8ec9d1cbaa10c00941b8564038ccc37
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 15:48:20 2024 -0500
+
+    Adding additional logic to scenario
+    - added more character based logic to opposing_guards_scenario so user choice affects the message displayed on screen
+
+commit 4411e1f25d3ac93b26fa78176b63f754d58ebc7e
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 15:37:16 2024 -0500
+
+    Adding additional logic & test cases to scenarios
+    - added more character based logic to after_fight_guard_in_garden_scenario so that different characters recieve specialized messages
+
+commit 54439b868ac89dee5e49479c42ed769305082313
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 15:14:06 2024 -0500
+
+    Adding additional character based logic to initial scenario
+
+commit 15cdbf9b36bd6d8a27810a2c7e5a3c2ad5e3ef92
+Merge: c158ac5 b10b02b
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 14:22:48 2024 -0500
+
+    Merge branch 'main' of https://github.com/tomas-salgado/cs3110-final-project
+
+commit c158ac5d6a56f424ab4e6705b3723fefa42139af
+Author: tch83 <tch83@cornell.edu>
+Date:   Tue Dec 10 14:18:09 2024 -0500
+
+    Adding additional logic to market scenario + adding tests for this
+
+commit b10b02b32c51990a4902ba3077f238969fd15562
+Author: Vanessa Morales <vmm62@cornell.edu>
+Date:   Tue Dec 10 14:06:29 2024 -0500
+
+    Expose guess_loop for testing
+    
+    - Added guess_loop to wordscramble.mli
+    - Refactored play_word_scramble
+
+commit c6966c4c3afb1a63a60815ef897f847a808bcec1
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 19:57:38 2024 -0500
+
+    Implementing test cases for adventure.ml
+    - implemented test cases for adventure.ml to achieve 100% coverage of that specific .ml file
+    - fixed bug in location in adventure.ml file itself discovered while testing
+
+commit fd02b2b99ff50e15d9dd9e3592d6314ddfb08813
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 18:12:52 2024 -0500
+
+    Adding test case to adventure_tests
+
+commit 205453f802453d30b4108364225dc918e91ea3b5
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 17:47:55 2024 -0500
+
+    Fixing test case bug
+
+commit 77b0fc9af019b63b370d193a67c0ce0b7f979126
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 17:11:16 2024 -0500
+
+    Fixing bug with gold
+    - fixing bug that was causing gold to initialize with the wrong amount within the game
+
+commit d43e6aa3545dc3883a92f0737c2d33f0c7855bd2
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 17:08:22 2024 -0500
+
+    Cleaning up code
+    - bug fix for location when it is printed to the screen for the user
+    - cleaning up non-used scenarios from adventure.mli file
+
+commit a7e7a7348790fb8ea8da6ffebed7a1c5d65676db
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 16:50:05 2024 -0500
+
+    Editing final game logic to be more consistent
+    - Game always starts with a maze
+    - Game always ends with an unscramble the word type game
+
+commit 080ecc98ded52c1e7c600e557d14defdab7beff1
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 13:44:25 2024 -0500
+
+    creating initial tests for word scramble
+
+commit e2565d8b8c1418d188bf285704e68a1790a14821
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 13:11:15 2024 -0500
+
+    Adding 2 tests for maze.ml
+
+commit 99449eeb5c8fa4737a79fc8dc39efd2b0a5c0138
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Dec 9 12:40:33 2024 -0500
+
+    Editing tests that are failing due to refactor
+
+commit 483d5644e6bc1361b91c0114b4cbfa547b2d592c
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Dec 8 23:00:59 2024 -0500
+
+    All scenarios now lead to ending on the scramble word game
+
+commit 8b35c4dbff771792d36cfd531745a6fbe080b9b7
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Dec 8 22:06:41 2024 -0500
+
+    Implementing word scramble
+    - implemented word scramble game to be played by the user at the END of the journey to determine wether they win or lose the game (save camelot)
+    - created wordscramble compilation unit and integrated it with main.ml to play as the final round and display a winning or losing message to the user
+
+commit 7964db175190c3017333c101edf2ff0d1f3be766
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Dec 8 21:08:51 2024 -0500
+
+    Adding new scenarios:
+    - added new scenarios to choose your own adventure
+    - incoprorated changing location into scenarios so they would print to screen throughout game
+    - improved UI by spacing scenarios so easier to read
+    - got rid of unsued fields and variables within adventure.ml
+
+commit effdebd72de5c40f40de41dbefe9121e538cdd6d
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Dec 8 18:30:38 2024 -0500
+
+    Organizing logic and adding additional scenarios
+
+commit 0dc96f924dbadb199bcfaa75961d62885d549780
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Dec 8 12:46:26 2024 -0500
+
+    Creating 3 new initial scenrio possibilities
+
+commit 5d44e7b35a3dd0c64720aee8355aaa59b4cdca79
+Author: tch83 <tch83@cornell.edu>
+Date:   Sun Dec 8 12:30:21 2024 -0500
+
+    Implementing game logic based on maze
+    - Initial game state scenario differs based on the number of steps the user takes in the initial maze game that is played by the user.
+
+commit 19e7264e18d2cef3a643414af9d1f92269d424dd
+Author: tch83 <tch83@cornell.edu>
+Date:   Sat Dec 7 19:32:44 2024 -0500
+
+    Adding tests for maze.ml
+
+commit 51a1b26a771cc43eb3bb1a833218a8b4560ed81f
+Author: tch83 <tch83@cornell.edu>
+Date:   Sat Dec 7 16:52:25 2024 -0500
+
+    Changes to maze, add tests
+    - Changed implementation of initial mini maze game
+    - Created higher order functions to ABSTRACT process of creating scenarios to functions making code less verbose
+    - Began initial test cases for maze.ml
+
+commit ed72f07d30582dd812943c5515803221b4905ffa
+Author: tch83 <tch83@cornell.edu>
+Date:   Sat Dec 7 14:12:01 2024 -0500
+
+    Add invalid character choice test
+
+commit 945c1c149730525ef615ac7756ac60606dccb5d6
+Author: tch83 <tch83@cornell.edu>
+Date:   Sat Dec 7 14:03:49 2024 -0500
+
+    Incorporating bisect for testing
+
+commit 6dfee9221fb50c53ca07351c35df7168ed2fe0f3
+Merge: 21147cc 8bc9b68
+Author: Vanessa Morales <vmm62@cornell.edu>
+Date:   Wed Dec 4 20:18:14 2024 -0500
+
+    Merge remote-tracking branch 'origin/main'
+
+commit 21147cc0d42f31948317294339e43d5dc3b21e4b
+Author: Vanessa Morales <vmm62@cornell.edu>
+Date:   Wed Dec 4 20:13:45 2024 -0500
+
+    Add tests
+    
+    - implement tests for initial game state
+    - implement QCheck generation of choices
+
+commit 8bc9b684389342a856ebc5f3b7f19a6b656c8fdf
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Nov 25 21:07:38 2024 -0500
+
+    Implementing Maze Mini Game
+    - Created compilation unit to represent a maze mini game
+    - Implemented ability for maze game to play as soon as the user starts the game
+    - User is able to use WASD to navigate through a terminal based maze game
+
+commit 4f37fd0f793360be8d19b6171a0050371afc248d
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Nov 25 20:32:49 2024 -0500
+
+    Fixing errors within the testing .ml file
+
+commit 0efcdb444163ad5280da47aec1d377a298e8dd69
+Merge: 414db16 031de80
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Nov 25 16:51:13 2024 -0500
+
+    Merge branch 'main' of https://github.com/tomas-salgado/cs3110-final-project
+
+commit 414db163dcc07eeca743f0f9aa711671c78b5c16
+Author: tch83 <tch83@cornell.edu>
+Date:   Mon Nov 25 16:51:10 2024 -0500
+
+    Adding OPAM, YAML, and gitlog.txt files
+
+commit 031de808ba89582f4cb8561d9eff82ac72f76af7
+Author: Vanessa Morales <vmm62@cornell.edu>
+Date:   Sat Nov 23 13:12:18 2024 -0500
+
+    Create Test Suite
+    
+    - add Qcheck library
+    - implement basic test suite to build on
+
 commit 9aa2e11fbdac2db4ea7c3b9a196d5b5af8961a0e
 Merge: 97bd0aa 2bf4265
 Author: tch83 <tch83@cornell.edu>
